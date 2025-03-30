@@ -4,7 +4,7 @@
 
 ## 🔘Part
 
-- [x] FE
+- [x] VPN
 
   <br/>
 
