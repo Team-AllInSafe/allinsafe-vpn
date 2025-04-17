@@ -1,0 +1,12 @@
+# ninja log v5
+9	98	7665733308243590	CMakeFiles/charon-bridge.dir/src/main/cpp/charon_bridge.c.o	4e6ef8f5cc16172c
+5	238	7665734590450287	build.ninja	8a83ab8f203b5385
+1	12	0	clean	f4369589d5a883b4
+18	236	7665733309510633	CMakeFiles/charon-bridge.dir/C_/Users/User/AndroidStudioProjects/AllinSafeVPN/external/strongswan/src/libstrongswan/library.c.o	d2930ece62fc1f2d
+14	311	7665734594608964	CMakeFiles/charon-bridge.dir/src/main/cpp/charon_bridge.c.o	14cdb10843da5066
+6	523	7665734597130496	CMakeFiles/charon-bridge.dir/C_/Users/User/AndroidStudioProjects/AllinSafeVPN/external/strongswan/src/libstrongswan/crypto/aead.c.o	aececc38713abe2b
+156	603	7665734597968019	CMakeFiles/charon-bridge.dir/C_/Users/User/AndroidStudioProjects/AllinSafeVPN/external/strongswan/src/libstrongswan/crypto/transform.c.o	1129ff1b1e305449
+250	634	7665734598326859	CMakeFiles/charon-bridge.dir/C_/Users/User/AndroidStudioProjects/AllinSafeVPN/external/strongswan/src/libstrongswan/library.c.o	2280c0eb895db5f5
+34	648	7665734598326859	CMakeFiles/charon-bridge.dir/C_/Users/User/AndroidStudioProjects/AllinSafeVPN/external/strongswan/src/libstrongswan/crypto/key_exchange.c.o	86236209bdac7cdf
+52	675	7665734598753914	CMakeFiles/charon-bridge.dir/C_/Users/User/AndroidStudioProjects/AllinSafeVPN/external/strongswan/src/libstrongswan/crypto/crypto_factory.c.o	7e41d51f136650ea
+23	694	7665734598905085	CMakeFiles/charon-bridge.dir/C_/Users/User/AndroidStudioProjects/AllinSafeVPN/external/strongswan/src/libstrongswan/crypto/crypto_tester.c.o	a12e5780e16b530b

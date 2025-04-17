@@ -1,0 +1,27 @@
+{
+  "buildFiles": [
+    "C:\\Users\\User\\AndroidStudioProjects\\AllinSafeVPN\\app\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "C:\\Users\\User\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+      "-C",
+      "C:\\Users\\User\\AndroidStudioProjects\\AllinSafeVPN\\app\\.cxx\\Debug\\1d486d3d\\x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "C:\\Users\\User\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+    "-C",
+    "C:\\Users\\User\\AndroidStudioProjects\\AllinSafeVPN\\app\\.cxx\\Debug\\1d486d3d\\x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "charon-bridge::@6890427a1f51a3e7e1df": {
+      "artifactName": "charon-bridge",
+      "abi": "x86_64",
+      "output": "C:\\Users\\User\\AndroidStudioProjects\\AllinSafeVPN\\app\\build\\intermediates\\cxx\\Debug\\1d486d3d\\obj\\x86_64\\libcharon-bridge.so",
+      "runtimeFiles": []
+    }
+  }
+}
