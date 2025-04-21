@@ -1,0 +1,3 @@
+C:/Users/User/AndroidStudioProjects/AllinSafeVPN/app/.cxx/Debug/1d486d3d/arm64-v8a/CMakeFiles/charon-bridge.dir
+C:/Users/User/AndroidStudioProjects/AllinSafeVPN/app/.cxx/Debug/1d486d3d/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/User/AndroidStudioProjects/AllinSafeVPN/app/.cxx/Debug/1d486d3d/arm64-v8a/CMakeFiles/rebuild_cache.dir
