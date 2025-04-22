@@ -7,6 +7,10 @@ android {
     namespace = "com.allinsafevpn"
     compileSdk = 35
 
+    viewBinding{
+        enable=true
+    }
+
     defaultConfig {
         applicationId = "com.allinsafevpn"
         minSdk = 24

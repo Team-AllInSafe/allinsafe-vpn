@@ -1,6 +1,10 @@
 package com.allinsafevpn
 
 import android.content.Context
+import android.content.Intent
+import android.net.VpnService
+import androidx.appcompat.app.AppCompatActivity.RESULT_OK
+import androidx.core.app.ActivityCompat.startActivityForResult
 import java.io.File
 
 object NativeVpnBridge {
@@ -15,5 +19,7 @@ object NativeVpnBridge {
 
         return startVpn(server, id, pw, certBytes, certPath)
     }
+
+
 
 }
