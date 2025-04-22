@@ -3,8 +3,9 @@ LOCAL_PATH := $(call my-dir)
 # charon_bridge 모듈 정의
 include $(CLEAR_VARS)
 
-LOCAL_MODULE    := charon-bridge#myvpncore
-LOCAL_SRC_FILES := $(LOCAL_PATH)/../app/src/main/cpp/charon_bridge.c
+LOCAL_MODULE    := charon-bridge
+#myvpncore
+LOCAL_SRC_FILES := ../app/src/main/cpp/charon_bridge.c
 
 LOCAL_C_INCLUDES := \
     $(LOCAL_PATH)/../external/strongswan/src/include \
