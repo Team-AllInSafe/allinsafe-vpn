@@ -1,5 +1,13 @@
 LOCAL_PATH := $(call my-dir)
 
+# libcrypto.a 모듈 정의
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := crypto_static
+LOCAL_SRC_FILES := ../app/src/main/openssl/$(TARGET_ARCH_ABI)/libcrypto.a
+LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/openssl/include
+include $(PREBUILT_STATIC_LIBRARY)
+
 # charon_bridge 모듈 정의
 include $(CLEAR_VARS)
 
@@ -12,10 +20,12 @@ LOCAL_C_INCLUDES := \
     $(LOCAL_PATH)/../external/strongswan/src/libstrongswan \
     $(LOCAL_PATH)/../external/strongswan/src/libstrongswan/asn1 \
     $(LOCAL_PATH)/../external/strongswan/src/libcharon \
-    $(LOCAL_PATH)/../external/strongswan/src/charon
+    $(LOCAL_PATH)/../external/strongswan/src/charon \
+    $(LOCAL_PATH)/openssl/include
 
 LOCAL_LDLIBS := -llog -latomic -lm
 # LOCAL_SHARED_LIBRARIES := libatomic
+LOCAL_STATIC_LIBRARIES := crypto_static
 
 include $(BUILD_SHARED_LIBRARY)
 
