@@ -10,7 +10,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.VpnService
 import androidx.core.app.ActivityCompat
-import com.allinsafevpn.NativeVpnBridge.startVpn
 import com.allinsafevpn.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

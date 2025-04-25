@@ -1,14 +1,17 @@
 #include <jni.h>
 #include <android/log.h>
 #include <stdio.h>
-#include <credentials/certificates/certificate.h> // lib->credmgr
-#include <credentials/certificates/x509.h>
-#include <credentials/credential_manager.h>  // add_cert()
-#include <credentials/certificates/x509.h>
-#include <bio/bio_reader.h>
-#include <bio/bio_writer.h>
-#include <library.h>
 
+//#include <credentials/certificates/certificate.h> // lib->credmgr
+//#include <utils/identification.h>
+//#include <credentials/keys/shared_key.h>
+#include <credentials/sets/mem_cred.h>
+#include <credentials/credential_manager.h>
+#include <library.h>
+#include <credentials/certificates/x509.h>
+#include <threading/rwlock.h>
+#include <utils/chunk.h>
+#include <utils/debug.h>
 
 
 #define LOG_TAG "JNI-Bridge"
@@ -18,68 +21,140 @@
 
 typedef struct cert_t cert_t;
 
+
 JNIEXPORT jboolean JNICALL
-Java_com_allinsafevpn_NativeVpnBridge_startVpn(JNIEnv *env, jobject thiz,
-                                               jstring server,
-                                               jstring username,
-                                               jstring password,
-                                               jbyteArray certBytes,
-                                               jstring certPath) {
-    // 1. 인증서 파일 저장
-    jsize len = (*env)->GetArrayLength(env, certBytes);
-    jbyte *buf = (*env)->GetByteArrayElements(env, certBytes, NULL);
+Java_com_allinsafevpn_NativeVpnBridge_registerCredentials(JNIEnv *env, jobject thiz,
+                                                          jstring j_server,
+                                                          jstring j_username,
+                                                          jstring j_password,
+                                                          jstring j_certBytes,
+                                                          jstring j_certPath) {
+    const char *username = (*env)->GetStringUTFChars(env, j_username, 0);
+    const char *password = (*env)->GetStringUTFChars(env, j_password, 0);
+    const char *certPath = (*env)->GetStringUTFChars(env, j_certPath, 0);
 
-    const char *c_certPath = (*env)->GetStringUTFChars(env, certPath, 0);
-    FILE *fp = fopen(c_certPath, "wb");
-    if (fp == NULL) {
-        LOGE("❌ Failed to open file for CA cert");
-        return JNI_FALSE;
+    // 인증서 로딩 (파일에서 DER 형식으로)
+    certificate_t *cert = lib->creds->create(lib->creds,
+                                             CRED_CERTIFICATE, CERT_X509,
+                                             BUILD_FROM_FILE, certPath,
+                                             BUILD_END);
+
+    if (!cert) {
+    LOGE("❌ 인증서 로딩 실패: %s", certPath);
+    return JNI_FALSE;
     }
 
-    fwrite(buf, sizeof(jbyte), len, fp);
-    fclose(fp);
-    (*env)->ReleaseStringUTFChars(env, certPath, c_certPath);
+    // mem_cred 생성 및 등록
+    mem_cred_t *creds = mem_cred_create();
 
-    // 2. 문자열 파라미터 변환
-    const char *c_server = (*env)->GetStringUTFChars(env, server, 0);
-    const char *c_user = (*env)->GetStringUTFChars(env, username, 0);
-    const char *c_pw = (*env)->GetStringUTFChars(env, password, 0);
+    // username/password 기반 shared key 등록 (EAP-MSCHAPv2)
+    identification_t *id = identification_create_from_string(username);
+    shared_key_t *key = shared_key_create(SHARED_EAP, chunk_from_str(password));
+    creds->add_shared(creds, key, id, NULL);
 
-    LOGI("🔐 server=%s, id=%s", c_server, c_user);
+    // 인증서 등록
+    creds->add_cert(creds, TRUE, cert);
 
-    // 3. 인증서 로드 → x509 파싱 → credentials 등록
-    bio_reader_t *reader = (bio_reader_t *) bio_reader_create_file(c_certPath);
-    if (!reader) {
-        LOGE("❌ Failed to read CA cert file");
-        return JNI_FALSE;
-    }
+    // 시스템 credential manager 에 등록
+    lib->credmgr->add_set(lib->credmgr ,&creds->set);
+//    lib->credmgr->add_set(lib->credmgr,&creds->set); CRED_CERTIFICATE 넣는거 내가 뺌.
+//      파라미터가 두개짜리 함수인데 3개 넣는걸로 줘서 내가 수정
 
-    chunk_t cert_chunk = reader->read_all(reader);
-    reader->destroy(reader);
+    LOGI("✅ 인증 정보 등록 완료: ID=%s\n cert:%s", username,certPath);
 
-    if (!cert_chunk.ptr || !cert_chunk.len) {
-        LOGE("❌ CA cert is empty or unreadable");
-        return JNI_FALSE;
-    }
-
-    x509_t *x509 = x509_create_from_der(cert_chunk);
-    chunk_free(&cert_chunk);
-
-    if (!x509) {
-        LOGE("❌ x509 파싱 실패");
-        return JNI_FALSE;
-    }
-
-    lib->credmgr->add_static_set(lib->credmgr, CRED_CERTIFICATE, &x509->interface);
-    LOGI("✅ 인증서 로딩 및 등록 완료");
-
-    // TODO: 이후 strongSwan 연결 (IKE_SA, EAP-MSCHAPv2 설정 및 연결 요청)
-
-    // 4. 해제
-    (*env)->ReleaseStringUTFChars(env, server, c_server);
-    (*env)->ReleaseStringUTFChars(env, username, c_user);
-    (*env)->ReleaseStringUTFChars(env, password, c_pw);
+    (*env)->ReleaseStringUTFChars(env, j_username, username);
+    (*env)->ReleaseStringUTFChars(env, j_password, password);
+    (*env)->ReleaseStringUTFChars(env, j_certPath, certPath);
 
     return JNI_TRUE;
 }
+
+
+//전버전2 (안돌아감)
+/*
+Java_com_allinsafevpn_NativeVpnBridge_registerCredentials(JNIEnv *env, jobject thiz,
+                                                          jstring j_username,
+                                                          jstring j_password,
+                                                          jstring j_certPath) {
+    const char *username = (*env)->GetStringUTFChars(env, j_username, 0);
+    const char *password = (*env)->GetStringUTFChars(env, j_password, 0);
+    const char *certPath = (*env)->GetStringUTFChars(env, j_certPath, 0);
+
+    // 1. cert 파일 경로로부터 x509 certificate 생성
+    certificate_t *cert = lib->creds->create(lib->creds,
+                                             CRED_CERTIFICATE, CERT_X509,
+                                             BUILD_FROM_FILE, certPath,
+                                             BUILD_END);
+
+    mem_cred_t* creds=mem_cred_create();
+    creds->add_cert(creds,TRUE,cert);
+    lib->credmgr->get_cert
+    if (!cert) {
+        LOGE("❌ 인증서 로딩 실패: %s", certPath);
+        return JNI_FALSE;
+    }
+
+    // 2. mem_cred_t 생성
+    mem_cred_t *creds = mem_cred_create();
+
+    // 3. username (ID) + password (EAP key) 등록
+    identification_t *id = identification_create_from_string(username);
+    shared_key_t *key = shared_key_create(SHARED_EAP, chunk_from_str(password));
+
+
+
+    creds->add(creds, CRED_SHARED, id, key);
+    creds->add(creds, CRED_CERTIFICATE, NULL, &cert->get_ref(cert)->interface);
+
+    // 4. 시스템 Credential Manager에 등록
+    lib->credmgr->add_set(lib->credmgr, CRED_SHARED, &creds->set);
+    lib->credmgr->add_set(lib->credmgr, CRED_CERTIFICATE, &creds->set);
+
+    LOGI("✅ 인증 정보 등록 완료: ID=%s", username);
+
+    // 해제
+    (*env)->ReleaseStringUTFChars(env, j_username, username);
+    (*env)->ReleaseStringUTFChars(env, j_password, password);
+    (*env)->ReleaseStringUTFChars(env, j_certPath, certPath);
+
+
+    return JNI_TRUE;
 }
+ */
+
+//startVpn 전버전 (안돌아감)
+// #include <credentials/auth_cfg.h> //add_cert
+// Java_com_allinsafevpn_NativeVpnBridge_startVpn(JNIEnv *env, jobject thiz,
+//                                               jstring server,
+//                                               jstring username,
+//                                               jstring password,
+//                                               jbyteArray certBytes,
+//                                               jstring certPath) {
+//    // 1. 인증서 파일 저장
+//    jsize len = (*env)->GetArrayLength(env, certBytes);
+//    jbyte *buf = (*env)->GetByteArrayElements(env, certBytes, NULL);
+//
+//    const char *c_certPath = (*env)->GetStringUTFChars(env, certPath, 0);
+//    FILE *fp = fopen(c_certPath, "wb");
+//    if (fp == NULL) {
+//        LOGE("❌ Failed to open file for CA cert");
+//        return JNI_FALSE;
+//    }
+//
+//    fwrite(buf, sizeof(jbyte), len, fp);
+//    fclose(fp);
+//    (*env)->ReleaseStringUTFChars(env, certPath, c_certPath);
+//
+//    // 2. 문자열 파라미터 변환
+//    const char *c_server = (*env)->GetStringUTFChars(env, server, 0);
+//    const char *c_user = (*env)->GetStringUTFChars(env, username, 0);
+//    const char *c_pw = (*env)->GetStringUTFChars(env, password, 0);
+//
+//    LOGI("🔐 server=%s, id=%s", c_server, c_user);
+
+
+
+
+
+
+
