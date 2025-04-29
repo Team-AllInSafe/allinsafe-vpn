@@ -7,8 +7,8 @@ android {
     namespace = "com.allinsafevpn"
     compileSdk = 35
 
-    viewBinding{
-        enable=true
+    buildFeatures{
+        viewBinding=true
     }
 
     defaultConfig {
@@ -19,15 +19,11 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        externalNativeBuild {
-            cmake {
-                cppFlags += "-std=c++17"
-            }
-        }
+
     }
     externalNativeBuild {
-        cmake {
-            path = file("CMakeLists.txt")
+        ndkBuild {
+            path = file("../jni/Android.mk")
         }
     }
     ndkVersion = "29.0.13113456"

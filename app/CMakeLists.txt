@@ -25,7 +25,7 @@
 #
 ## JNI 브릿지 C 파일
 #set(JNI_SOURCES
-#        ${CMAKE_SOURCE_DIR}/src/main/cpp/charon_bridge.c
+#        ${CMAKE_SOURCE_DIR}/src/main/cpp/charon-bridge.c
 #)
 #
 ## 라이브러리 생성

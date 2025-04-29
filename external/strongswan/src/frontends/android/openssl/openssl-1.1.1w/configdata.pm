@@ -13,9 +13,9 @@ our @EXPORT = qw(%config %target %disabled %withargs %unified_info @disablables)
 our %config = (
   AR => "llvm-ar",
   ARFLAGS => [ "rs" ],
-  CC => "aarch64-linux-android24-clang",
+  CC => "x86_64-linux-android35-clang",
   CFLAGS => [ "-Wall -O3" ],
-  CPPDEFINES => [ "__ANDROID_API__=24" ],
+  CPPDEFINES => [  ],
   CPPFLAGS => [  ],
   CPPINCLUDES => [  ],
   CXX => "g++",
@@ -43,45 +43,56 @@ our %config = (
   cxxflags => [  ],
   defines => [ "NDEBUG" ],
   dirs => [ "crypto", "ssl", "engines", "apps", "test", "util", "tools", "fuzz" ],
-  dynamic_engines => "1",
+  dso_defines => [ "PADLOCK_ASM" ],
+  dynamic_engines => "0",
   engdirs => [  ],
   ex_libs => [  ],
   export_var_as_fn => "0",
   includes => [  ],
   lflags => [  ],
-  lib_defines => [ "OPENSSL_PIC", "OPENSSL_CPUID_OBJ", "OPENSSL_BN_ASM_MONT", "SHA1_ASM", "SHA256_ASM", "SHA512_ASM", "KECCAK1600_ASM", "VPAES_ASM", "ECP_NISTZ256_ASM", "POLY1305_ASM" ],
+  lib_defines => [ "OPENSSL_PIC", "OPENSSL_CPUID_OBJ", "OPENSSL_IA32_SSE2", "OPENSSL_BN_ASM_MONT", "OPENSSL_BN_ASM_MONT5", "OPENSSL_BN_ASM_GF2m", "SHA1_ASM", "SHA256_ASM", "SHA512_ASM", "KECCAK1600_ASM", "RC4_ASM", "MD5_ASM", "AESNI_ASM", "VPAES_ASM", "GHASH_ASM", "ECP_NISTZ256_ASM", "X25519_ASM", "POLY1305_ASM" ],
   libdir => "",
   major => "1",
-  makedepprog => "\$(CROSS_COMPILE)aarch64-linux-android24-clang",
+  makedepprog => "\$(CROSS_COMPILE)x86_64-linux-android35-clang",
   minor => "1.1",
   openssl_algorithm_defines => [ "OPENSSL_NO_MD2", "OPENSSL_NO_RC5" ],
   openssl_api_defines => [  ],
-  openssl_other_defines => [ "OPENSSL_RAND_SEED_OS", "OPENSSL_NO_AFALGENG", "OPENSSL_NO_ASAN", "OPENSSL_NO_CRYPTO_MDEBUG", "OPENSSL_NO_CRYPTO_MDEBUG_BACKTRACE", "OPENSSL_NO_DEVCRYPTOENG", "OPENSSL_NO_EC_NISTP_64_GCC_128", "OPENSSL_NO_EGD", "OPENSSL_NO_EXTERNAL_TESTS", "OPENSSL_NO_FUZZ_AFL", "OPENSSL_NO_FUZZ_LIBFUZZER", "OPENSSL_NO_HEARTBEATS", "OPENSSL_NO_MSAN", "OPENSSL_NO_SCTP", "OPENSSL_NO_SSL_TRACE", "OPENSSL_NO_SSL3", "OPENSSL_NO_SSL3_METHOD", "OPENSSL_NO_UBSAN", "OPENSSL_NO_UNIT_TEST", "OPENSSL_NO_WEAK_SSL_CIPHERS", "OPENSSL_NO_STATIC_ENGINE" ],
+  openssl_other_defines => [ "OPENSSL_RAND_SEED_OS", "OPENSSL_NO_AFALGENG", "OPENSSL_NO_ASAN", "OPENSSL_NO_CRYPTO_MDEBUG", "OPENSSL_NO_CRYPTO_MDEBUG_BACKTRACE", "OPENSSL_NO_DEVCRYPTOENG", "OPENSSL_NO_EC_NISTP_64_GCC_128", "OPENSSL_NO_EGD", "OPENSSL_NO_EXTERNAL_TESTS", "OPENSSL_NO_FUZZ_AFL", "OPENSSL_NO_FUZZ_LIBFUZZER", "OPENSSL_NO_HEARTBEATS", "OPENSSL_NO_MSAN", "OPENSSL_NO_SCTP", "OPENSSL_NO_SSL_TRACE", "OPENSSL_NO_SSL3", "OPENSSL_NO_SSL3_METHOD", "OPENSSL_NO_TESTS", "OPENSSL_NO_UBSAN", "OPENSSL_NO_UNIT_TEST", "OPENSSL_NO_WEAK_SSL_CIPHERS", "OPENSSL_NO_DYNAMIC_ENGINE" ],
   openssl_sys_defines => [  ],
   openssl_thread_defines => [ "OPENSSL_THREADS" ],
   openssldir => "",
-  options => "-D__ANDROID_API__=24 no-afalgeng no-asan no-buildtest-c++ no-crypto-mdebug no-crypto-mdebug-backtrace no-devcryptoeng no-ec_nistp_64_gcc_128 no-egd no-external-tests no-fuzz-afl no-fuzz-libfuzzer no-heartbeats no-md2 no-msan no-rc5 no-sctp no-ssl-trace no-ssl3 no-ssl3-method no-ubsan no-unit-test no-weak-ssl-ciphers no-zlib no-zlib-dynamic",
+  options => " no-afalgeng no-asan no-buildtest-c++ no-crypto-mdebug no-crypto-mdebug-backtrace no-devcryptoeng no-dynamic-engine no-ec_nistp_64_gcc_128 no-egd no-external-tests no-fuzz-afl no-fuzz-libfuzzer no-heartbeats no-md2 no-msan no-rc5 no-sctp no-shared no-ssl-trace no-ssl3 no-ssl3-method no-tests no-ubsan no-unit-test no-weak-ssl-ciphers no-zlib no-zlib-dynamic",
   perl_archname => "x86_64-cygwin-thread-multi",
   perl_cmd => "perl",
   perl_version => "5.38.4",
-  perlargv => [ "android-arm64", "-D__ANDROID_API__=24", "CC=clang" ],
+  perlargv => [ "android-x86_64", "no-shared", "no-unit-test", "no-tests" ],
   perlenv => {
       "AR" => undef,
+      "ARFLAGS" => undef,
+      "AS" => undef,
+      "ASFLAGS" => undef,
       "BUILDFILE" => undef,
       "CC" => undef,
       "CFLAGS" => undef,
+      "CPP" => undef,
+      "CPPDEFINES" => undef,
       "CPPFLAGS" => undef,
+      "CPPINCLUDES" => undef,
       "CROSS_COMPILE" => undef,
       "CXX" => undef,
       "CXXFLAGS" => undef,
       "HASHBANGPERL" => undef,
+      "LD" => undef,
       "LDFLAGS" => undef,
       "LDLIBS" => undef,
+      "MT" => undef,
+      "MTFLAGS" => undef,
       "OPENSSL_LOCAL_CONFIG_DIR" => undef,
       "PERL" => undef,
       "RANLIB" => undef,
       "RC" => undef,
       "RCFLAGS" => undef,
+      "RM" => undef,
       "WINDRES" => undef,
       "__CNF_CFLAGS" => undef,
       "__CNF_CPPDEFINES" => undef,
@@ -93,14 +104,14 @@ our %config = (
   },
   prefix => "",
   processor => "",
-  rc4_int => "unsigned char",
+  rc4_int => "unsigned int",
   sdirs => [ "objects", "md4", "md5", "sha", "mdc2", "hmac", "ripemd", "whrlpool", "poly1305", "blake2", "siphash", "sm3", "des", "aes", "rc2", "rc4", "idea", "aria", "bf", "cast", "camellia", "seed", "sm4", "chacha", "modes", "bn", "ec", "rsa", "dsa", "dh", "sm2", "dso", "engine", "buffer", "bio", "stack", "lhash", "rand", "err", "evp", "asn1", "pem", "x509", "x509v3", "conf", "txt_db", "pkcs7", "pkcs12", "comp", "ocsp", "ui", "cms", "ts", "srp", "cmac", "ct", "async", "kdf", "store" ],
   shlib_major => "1",
   shlib_minor => "1",
   shlib_version_history => "",
   shlib_version_number => "1.1",
   sourcedir => ".",
-  target => "android-arm64",
+  target => "android-x86_64",
   tdirs => [ "ossl_shim" ],
   version => "1.1.1w",
   version_num => "0x1010117fL",
@@ -117,29 +128,29 @@ our %target = (
   RANLIB => "ranlib",
   RC => "windres",
   _conf_fname_int => [ "Configurations/00-base-templates.conf", "Configurations/00-base-templates.conf", "Configurations/10-main.conf", "Configurations/15-android.conf", "Configurations/00-base-templates.conf", "Configurations/15-android.conf", "Configurations/shared-info.pl" ],
-  aes_asm_src => "aes_core.c aes_cbc.c aesv8-armx.S vpaes-armv8.S",
-  aes_obj => "aes_core.o aes_cbc.o aesv8-armx.o vpaes-armv8.o",
+  aes_asm_src => "aes_core.c aes_cbc.c vpaes-x86_64.s aesni-x86_64.s aesni-sha1-x86_64.s aesni-sha256-x86_64.s aesni-mb-x86_64.s",
+  aes_obj => "aes_core.o aes_cbc.o vpaes-x86_64.o aesni-x86_64.o aesni-sha1-x86_64.o aesni-sha256-x86_64.o aesni-mb-x86_64.o",
   apps_aux_src => "",
   apps_init_src => "",
   apps_obj => "",
   bf_asm_src => "bf_enc.c",
   bf_obj => "bf_enc.o",
   bin_cflags => "-pie",
-  bn_asm_src => "bn_asm.c armv8-mont.S",
-  bn_obj => "bn_asm.o armv8-mont.o",
-  bn_ops => "SIXTY_FOUR_BIT_LONG RC4_CHAR",
+  bn_asm_src => "asm/x86_64-gcc.c x86_64-mont.s x86_64-mont5.s x86_64-gf2m.s rsaz_exp.c rsaz-x86_64.s rsaz-avx2.s",
+  bn_obj => "asm/x86_64-gcc.o x86_64-mont.o x86_64-mont5.o x86_64-gf2m.o rsaz_exp.o rsaz-x86_64.o rsaz-avx2.o",
+  bn_ops => "SIXTY_FOUR_BIT_LONG RC4_INT",
   build_file => "Makefile",
   build_scheme => [ "unified", "unix" ],
   cast_asm_src => "c_enc.c",
   cast_obj => "c_enc.o",
   cflags => "-pthread",
-  chacha_asm_src => "chacha-armv8.S",
-  chacha_obj => "chacha-armv8.o",
-  cmll_asm_src => "camellia.c cmll_misc.c cmll_cbc.c",
-  cmll_obj => "camellia.o cmll_misc.o cmll_cbc.o",
+  chacha_asm_src => "chacha-x86_64.s",
+  chacha_obj => "chacha-x86_64.o",
+  cmll_asm_src => "cmll-x86_64.s cmll_misc.c",
+  cmll_obj => "cmll-x86_64.o cmll_misc.o",
   cppflags => "",
-  cpuid_asm_src => "armcap.c arm64cpuid.S",
-  cpuid_obj => "armcap.o arm64cpuid.o",
+  cpuid_asm_src => "x86_64cpuid.s",
+  cpuid_obj => "x86_64cpuid.o",
   cxxflags => "-std=c++11 -pthread",
   defines => [  ],
   des_asm_src => "des_enc.c fcrypt_b.c",
@@ -147,38 +158,38 @@ our %target = (
   disable => [  ],
   dso_extension => ".so",
   dso_scheme => "dlfcn",
-  ec_asm_src => "ecp_nistz256.c ecp_nistz256-armv8.S",
-  ec_obj => "ecp_nistz256.o ecp_nistz256-armv8.o",
+  ec_asm_src => "ecp_nistz256.c ecp_nistz256-x86_64.s x25519-x86_64.s",
+  ec_obj => "ecp_nistz256.o ecp_nistz256-x86_64.o x25519-x86_64.o",
   enable => [  ],
   ex_libs => "-ldl -pthread",
   exe_extension => "",
   includes => [  ],
-  keccak1600_asm_src => "keccak1600-armv8.S",
-  keccak1600_obj => "keccak1600-armv8.o",
+  keccak1600_asm_src => "keccak1600-x86_64.s",
+  keccak1600_obj => "keccak1600-x86_64.o",
   lflags => "",
   lib_cflags => "",
   lib_cppflags => "-DOPENSSL_USE_NODELETE",
   lib_defines => [  ],
-  md5_asm_src => "",
-  md5_obj => "",
-  modes_asm_src => "ghashv8-armx.S",
-  modes_obj => "ghashv8-armx.o",
+  md5_asm_src => "md5-x86_64.s",
+  md5_obj => "md5-x86_64.o",
+  modes_asm_src => "ghash-x86_64.s aesni-gcm-x86_64.s",
+  modes_obj => "ghash-x86_64.o aesni-gcm-x86_64.o",
   module_cflags => "-fPIC",
   module_cxxflags => "",
   module_ldflags => "-Wl,-znodelete -shared -Wl,-Bsymbolic",
-  padlock_asm_src => "",
-  padlock_obj => "",
-  perlasm_scheme => "linux64",
-  poly1305_asm_src => "poly1305-armv8.S",
-  poly1305_obj => "poly1305-armv8.o",
-  rc4_asm_src => "rc4_enc.c rc4_skey.c",
-  rc4_obj => "rc4_enc.o rc4_skey.o",
+  padlock_asm_src => "e_padlock-x86_64.s",
+  padlock_obj => "e_padlock-x86_64.o",
+  perlasm_scheme => "elf",
+  poly1305_asm_src => "poly1305-x86_64.s",
+  poly1305_obj => "poly1305-x86_64.o",
+  rc4_asm_src => "rc4-x86_64.s rc4-md5-x86_64.s",
+  rc4_obj => "rc4-x86_64.o rc4-md5-x86_64.o",
   rc5_asm_src => "rc5_enc.c",
   rc5_obj => "rc5_enc.o",
   rmd160_asm_src => "",
   rmd160_obj => "",
-  sha1_asm_src => "sha1-armv8.S sha256-armv8.S sha512-armv8.S",
-  sha1_obj => "sha1-armv8.o sha256-armv8.o sha512-armv8.o",
+  sha1_asm_src => "sha1-x86_64.s sha256-x86_64.s sha512-x86_64.s sha1-mb-x86_64.s sha256-mb-x86_64.s",
+  sha1_obj => "sha1-x86_64.o sha256-x86_64.o sha512-x86_64.o sha1-mb-x86_64.o sha256-mb-x86_64.o",
   shared_cflag => "-fPIC",
   shared_defflag => "-Wl,--version-script=",
   shared_defines => [  ],
@@ -194,8 +205,8 @@ our %target = (
   unistd => "<unistd.h>",
   uplink_aux_src => "",
   uplink_obj => "",
-  wp_asm_src => "wp_block.c",
-  wp_obj => "wp_block.o",
+  wp_asm_src => "wp-x86_64.s",
+  wp_obj => "wp-x86_64.o",
 );
 
 our %available_protocols = (
@@ -319,6 +330,7 @@ our %disabled = (
   "crypto-mdebug" => "default",
   "crypto-mdebug-backtrace" => "default",
   "devcryptoeng" => "default",
+  "dynamic-engine" => "cascade",
   "ec_nistp_64_gcc_128" => "default",
   "egd" => "default",
   "external-tests" => "default",
@@ -329,11 +341,13 @@ our %disabled = (
   "msan" => "default",
   "rc5" => "default",
   "sctp" => "default",
+  "shared" => "option",
   "ssl-trace" => "default",
   "ssl3" => "default",
   "ssl3-method" => "default",
+  "tests" => "option",
   "ubsan" => "default",
-  "unit-test" => "default",
+  "unit-test" => "option",
   "weak-ssl-ciphers" => "default",
   "zlib" => "default",
   "zlib-dynamic" => "default",
@@ -644,69 +658,6 @@ our %unified_info = (
                 [
                     "crypto/perlasm/x86asm.pl",
                 ],
-            "engines/capi" =>
-                [
-                    "libcrypto",
-                ],
-            "engines/dasync" =>
-                [
-                    "libcrypto",
-                ],
-            "engines/ossltest" =>
-                [
-                    "libcrypto",
-                ],
-            "engines/padlock" =>
-                [
-                    "libcrypto",
-                ],
-            "fuzz/asn1-test" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "fuzz/asn1parse-test" =>
-                [
-                    "libcrypto",
-                ],
-            "fuzz/bignum-test" =>
-                [
-                    "libcrypto",
-                ],
-            "fuzz/bndiv-test" =>
-                [
-                    "libcrypto",
-                ],
-            "fuzz/client-test" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "fuzz/cms-test" =>
-                [
-                    "libcrypto",
-                ],
-            "fuzz/conf-test" =>
-                [
-                    "libcrypto",
-                ],
-            "fuzz/crl-test" =>
-                [
-                    "libcrypto",
-                ],
-            "fuzz/ct-test" =>
-                [
-                    "libcrypto",
-                ],
-            "fuzz/server-test" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "fuzz/x509-test" =>
-                [
-                    "libcrypto",
-                ],
             "include/crypto/bn_conf.h" =>
                 [
                     "configdata.pm",
@@ -730,933 +681,6 @@ our %unified_info = (
             "libssl.map" =>
                 [
                     "util/libssl.num",
-                ],
-            "test/aborttest" =>
-                [
-                    "libcrypto",
-                ],
-            "test/afalgtest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/asn1_decode_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/asn1_encode_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/asn1_internal_test" =>
-                [
-                    "libcrypto.a",
-                    "test/libtestutil.a",
-                ],
-            "test/asn1_string_table_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/asn1_time_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/asynciotest" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                    "test/libtestutil.a",
-                ],
-            "test/asynctest" =>
-                [
-                    "libcrypto",
-                ],
-            "test/bad_dtls_test" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                    "test/libtestutil.a",
-                ],
-            "test/bftest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/bio_callback_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/bio_enc_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/bio_memleak_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/bioprinttest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/bntest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/buildtest_c_aes" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_asn1" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_asn1t" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_async" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_bio" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_blowfish" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_bn" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_buffer" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_camellia" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_cast" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_cmac" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_cms" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_comp" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_conf" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_conf_api" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_crypto" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_ct" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_des" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_dh" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_dsa" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_dtls1" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_e_os2" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_ebcdic" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_ec" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_ecdh" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_ecdsa" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_engine" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_evp" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_hmac" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_idea" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_kdf" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_lhash" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_md4" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_md5" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_mdc2" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_modes" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_obj_mac" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_objects" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_ocsp" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_opensslv" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_ossl_typ" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_pem" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_pem2" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_pkcs12" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_pkcs7" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_rand" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_rand_drbg" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_rc2" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_rc4" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_ripemd" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_rsa" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_safestack" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_seed" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_sha" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_srp" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_srtp" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_ssl" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_ssl2" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_stack" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_store" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_symhacks" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_tls1" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_ts" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_txt_db" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_ui" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_whrlpool" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_x509" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_x509_vfy" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/buildtest_c_x509v3" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/casttest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/chacha_internal_test" =>
-                [
-                    "libcrypto.a",
-                    "test/libtestutil.a",
-                ],
-            "test/cipherbytes_test" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                    "test/libtestutil.a",
-                ],
-            "test/cipherlist_test" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                    "test/libtestutil.a",
-                ],
-            "test/ciphername_test" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                    "test/libtestutil.a",
-                ],
-            "test/clienthellotest" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                    "test/libtestutil.a",
-                ],
-            "test/cmactest" =>
-                [
-                    "libcrypto.a",
-                    "test/libtestutil.a",
-                ],
-            "test/cmsapitest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/conf_include_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/constant_time_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/crltest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/ct_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/ctype_internal_test" =>
-                [
-                    "libcrypto.a",
-                    "test/libtestutil.a",
-                ],
-            "test/curve448_internal_test" =>
-                [
-                    "libcrypto.a",
-                    "test/libtestutil.a",
-                ],
-            "test/d2i_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/danetest" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                    "test/libtestutil.a",
-                ],
-            "test/destest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/dhtest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/drbg_cavs_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/drbgtest" =>
-                [
-                    "libcrypto.a",
-                    "test/libtestutil.a",
-                ],
-            "test/dsa_no_digest_size_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/dsatest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/dtls_mtu_test" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                    "test/libtestutil.a",
-                ],
-            "test/dtlstest" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                    "test/libtestutil.a",
-                ],
-            "test/dtlsv1listentest" =>
-                [
-                    "libssl",
-                    "test/libtestutil.a",
-                ],
-            "test/ec_internal_test" =>
-                [
-                    "libcrypto.a",
-                    "test/libtestutil.a",
-                ],
-            "test/ecdsatest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/ecstresstest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/ectest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/enginetest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/errtest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/evp_extra_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/evp_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/exdatatest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/exptest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/fatalerrtest" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                    "test/libtestutil.a",
-                ],
-            "test/gmdifftest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/gosttest" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                    "test/libtestutil.a",
-                ],
-            "test/hmactest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/ideatest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/igetest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/lhash_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/libtestutil.a" =>
-                [
-                    "libcrypto",
-                ],
-            "test/md2test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/mdc2_internal_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/mdc2test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/memleaktest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/modes_internal_test" =>
-                [
-                    "libcrypto.a",
-                    "test/libtestutil.a",
-                ],
-            "test/ocspapitest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/packettest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/pbelutest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/pemtest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/pkey_meth_kdf_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/pkey_meth_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/poly1305_internal_test" =>
-                [
-                    "libcrypto.a",
-                    "test/libtestutil.a",
-                ],
-            "test/rc2test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/rc4test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/rc5test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/rdrand_sanitytest" =>
-                [
-                    "libcrypto.a",
-                    "test/libtestutil.a",
-                ],
-            "test/recordlentest" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                    "test/libtestutil.a",
-                ],
-            "test/rsa_mp_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/rsa_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/sanitytest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/secmemtest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/servername_test" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                    "test/libtestutil.a",
-                ],
-            "test/siphash_internal_test" =>
-                [
-                    "libcrypto.a",
-                    "test/libtestutil.a",
-                ],
-            "test/sm2_internal_test" =>
-                [
-                    "libcrypto.a",
-                    "test/libtestutil.a",
-                ],
-            "test/sm4_internal_test" =>
-                [
-                    "libcrypto.a",
-                    "test/libtestutil.a",
-                ],
-            "test/srptest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/ssl_cert_table_internal_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/ssl_ctx_test" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                    "test/libtestutil.a",
-                ],
-            "test/ssl_test" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                    "test/libtestutil.a",
-                ],
-            "test/ssl_test_ctx_test" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                    "test/libtestutil.a",
-                ],
-            "test/sslapitest" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                    "test/libtestutil.a",
-                ],
-            "test/sslbuffertest" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                    "test/libtestutil.a",
-                ],
-            "test/sslcorrupttest" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                    "test/libtestutil.a",
-                ],
-            "test/ssltest_old" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                ],
-            "test/stack_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/sysdefaulttest" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                    "test/libtestutil.a",
-                ],
-            "test/test_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/threadstest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/time_offset_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/tls13ccstest" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                    "test/libtestutil.a",
-                ],
-            "test/tls13encryptiontest" =>
-                [
-                    "libcrypto",
-                    "libssl.a",
-                    "test/libtestutil.a",
-                ],
-            "test/tls13secretstest" =>
-                [
-                    "libcrypto",
-                    "libssl",
-                    "test/libtestutil.a",
-                ],
-            "test/uitest" =>
-                [
-                    "apps/libapps.a",
-                    "libcrypto",
-                    "libssl",
-                    "test/libtestutil.a",
-                ],
-            "test/v3ext" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/v3nametest" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/verify_extra_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/versions" =>
-                [
-                    "libcrypto",
-                ],
-            "test/wpackettest" =>
-                [
-                    "libcrypto",
-                    "libssl.a",
-                    "test/libtestutil.a",
-                ],
-            "test/x509_check_cert_pkey_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/x509_dup_cert_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/x509_internal_test" =>
-                [
-                    "libcrypto.a",
-                    "test/libtestutil.a",
-                ],
-            "test/x509_time_test" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
-                ],
-            "test/x509aux" =>
-                [
-                    "libcrypto",
-                    "test/libtestutil.a",
                 ],
         },
     "dirinfo" =>
@@ -1684,8 +708,6 @@ our %unified_info = (
                 {
                     "deps" =>
                         [
-                            "crypto/arm64cpuid.o",
-                            "crypto/armcap.o",
                             "crypto/cpt_err.o",
                             "crypto/cryptlib.o",
                             "crypto/ctype.o",
@@ -1707,6 +729,7 @@ our %unified_info = (
                             "crypto/threads_pthread.o",
                             "crypto/threads_win.o",
                             "crypto/uid.o",
+                            "crypto/x86_64cpuid.o",
                         ],
                     "products" =>
                         {
@@ -1728,8 +751,11 @@ our %unified_info = (
                             "crypto/aes/aes_misc.o",
                             "crypto/aes/aes_ofb.o",
                             "crypto/aes/aes_wrap.o",
-                            "crypto/aes/aesv8-armx.o",
-                            "crypto/aes/vpaes-armv8.o",
+                            "crypto/aes/aesni-mb-x86_64.o",
+                            "crypto/aes/aesni-sha1-x86_64.o",
+                            "crypto/aes/aesni-sha256-x86_64.o",
+                            "crypto/aes/aesni-x86_64.o",
+                            "crypto/aes/vpaes-x86_64.o",
                         ],
                     "products" =>
                         {
@@ -1937,9 +963,7 @@ our %unified_info = (
                 {
                     "deps" =>
                         [
-                            "crypto/bn/armv8-mont.o",
                             "crypto/bn/bn_add.o",
-                            "crypto/bn/bn_asm.o",
                             "crypto/bn/bn_blind.o",
                             "crypto/bn/bn_const.o",
                             "crypto/bn/bn_ctx.o",
@@ -1969,6 +993,26 @@ our %unified_info = (
                             "crypto/bn/bn_srp.o",
                             "crypto/bn/bn_word.o",
                             "crypto/bn/bn_x931p.o",
+                            "crypto/bn/rsaz-avx2.o",
+                            "crypto/bn/rsaz-x86_64.o",
+                            "crypto/bn/rsaz_exp.o",
+                            "crypto/bn/x86_64-gf2m.o",
+                            "crypto/bn/x86_64-mont.o",
+                            "crypto/bn/x86_64-mont5.o",
+                        ],
+                    "products" =>
+                        {
+                            "lib" =>
+                                [
+                                    "libcrypto",
+                                ],
+                        },
+                },
+            "crypto/bn/asm" =>
+                {
+                    "deps" =>
+                        [
+                            "crypto/bn/asm/x86_64-gcc.o",
                         ],
                     "products" =>
                         {
@@ -1997,8 +1041,7 @@ our %unified_info = (
                 {
                     "deps" =>
                         [
-                            "crypto/camellia/camellia.o",
-                            "crypto/camellia/cmll_cbc.o",
+                            "crypto/camellia/cmll-x86_64.o",
                             "crypto/camellia/cmll_cfb.o",
                             "crypto/camellia/cmll_ctr.o",
                             "crypto/camellia/cmll_ecb.o",
@@ -2035,7 +1078,7 @@ our %unified_info = (
                 {
                     "deps" =>
                         [
-                            "crypto/chacha/chacha-armv8.o",
+                            "crypto/chacha/chacha-x86_64.o",
                         ],
                     "products" =>
                         {
@@ -2285,11 +1328,12 @@ our %unified_info = (
                             "crypto/ec/ecp_nistp256.o",
                             "crypto/ec/ecp_nistp521.o",
                             "crypto/ec/ecp_nistputil.o",
-                            "crypto/ec/ecp_nistz256-armv8.o",
+                            "crypto/ec/ecp_nistz256-x86_64.o",
                             "crypto/ec/ecp_nistz256.o",
                             "crypto/ec/ecp_oct.o",
                             "crypto/ec/ecp_smpl.o",
                             "crypto/ec/ecx_meth.o",
+                            "crypto/ec/x25519-x86_64.o",
                         ],
                     "products" =>
                         {
@@ -2541,6 +1585,7 @@ our %unified_info = (
                 {
                     "deps" =>
                         [
+                            "crypto/md5/md5-x86_64.o",
                             "crypto/md5/md5_dgst.o",
                             "crypto/md5/md5_one.o",
                         ],
@@ -2571,13 +1616,14 @@ our %unified_info = (
                 {
                     "deps" =>
                         [
+                            "crypto/modes/aesni-gcm-x86_64.o",
                             "crypto/modes/cbc128.o",
                             "crypto/modes/ccm128.o",
                             "crypto/modes/cfb128.o",
                             "crypto/modes/ctr128.o",
                             "crypto/modes/cts128.o",
                             "crypto/modes/gcm128.o",
-                            "crypto/modes/ghashv8-armx.o",
+                            "crypto/modes/ghash-x86_64.o",
                             "crypto/modes/ocb128.o",
                             "crypto/modes/ofb128.o",
                             "crypto/modes/wrap128.o",
@@ -2710,7 +1756,7 @@ our %unified_info = (
                 {
                     "deps" =>
                         [
-                            "crypto/poly1305/poly1305-armv8.o",
+                            "crypto/poly1305/poly1305-x86_64.o",
                             "crypto/poly1305/poly1305.o",
                             "crypto/poly1305/poly1305_ameth.o",
                             "crypto/poly1305/poly1305_pmeth.o",
@@ -2767,8 +1813,8 @@ our %unified_info = (
                 {
                     "deps" =>
                         [
-                            "crypto/rc4/rc4_enc.o",
-                            "crypto/rc4/rc4_skey.o",
+                            "crypto/rc4/rc4-md5-x86_64.o",
+                            "crypto/rc4/rc4-x86_64.o",
                         ],
                     "products" =>
                         {
@@ -2850,13 +1896,15 @@ our %unified_info = (
                 {
                     "deps" =>
                         [
-                            "crypto/sha/keccak1600-armv8.o",
-                            "crypto/sha/sha1-armv8.o",
+                            "crypto/sha/keccak1600-x86_64.o",
+                            "crypto/sha/sha1-mb-x86_64.o",
+                            "crypto/sha/sha1-x86_64.o",
                             "crypto/sha/sha1_one.o",
                             "crypto/sha/sha1dgst.o",
-                            "crypto/sha/sha256-armv8.o",
+                            "crypto/sha/sha256-mb-x86_64.o",
+                            "crypto/sha/sha256-x86_64.o",
                             "crypto/sha/sha256.o",
-                            "crypto/sha/sha512-armv8.o",
+                            "crypto/sha/sha512-x86_64.o",
                             "crypto/sha/sha512.o",
                         ],
                     "products" =>
@@ -3037,7 +2085,7 @@ our %unified_info = (
                 {
                     "deps" =>
                         [
-                            "crypto/whrlpool/wp_block.o",
+                            "crypto/whrlpool/wp-x86_64.o",
                             "crypto/whrlpool/wp_dgst.o",
                         ],
                     "products" =>
@@ -3149,34 +2197,17 @@ our %unified_info = (
                 },
             "engines" =>
                 {
+                    "deps" =>
+                        [
+                            "engines/e_capi.o",
+                            "engines/e_padlock-x86_64.o",
+                            "engines/e_padlock.o",
+                        ],
                     "products" =>
                         {
-                            "dso" =>
+                            "lib" =>
                                 [
-                                    "engines/capi",
-                                    "engines/dasync",
-                                    "engines/ossltest",
-                                    "engines/padlock",
-                                ],
-                        },
-                },
-            "fuzz" =>
-                {
-                    "products" =>
-                        {
-                            "bin" =>
-                                [
-                                    "fuzz/asn1-test",
-                                    "fuzz/asn1parse-test",
-                                    "fuzz/bignum-test",
-                                    "fuzz/bndiv-test",
-                                    "fuzz/client-test",
-                                    "fuzz/cms-test",
-                                    "fuzz/conf-test",
-                                    "fuzz/crl-test",
-                                    "fuzz/ct-test",
-                                    "fuzz/server-test",
-                                    "fuzz/x509-test",
+                                    "libcrypto",
                                 ],
                         },
                 },
@@ -3213,15 +2244,9 @@ our %unified_info = (
                             "ssl/t1_trce.o",
                             "ssl/tls13_enc.o",
                             "ssl/tls_srp.o",
-                            "ssl/packet.o",
-                            "ssl/tls13_enc.o",
                         ],
                     "products" =>
                         {
-                            "bin" =>
-                                [
-                                    "test/tls13secretstest",
-                                ],
                             "lib" =>
                                 [
                                     "libssl",
@@ -3269,31 +2294,6 @@ our %unified_info = (
                                 ],
                         },
                 },
-            "test/testutil" =>
-                {
-                    "deps" =>
-                        [
-                            "test/testutil/basic_output.o",
-                            "test/testutil/cb.o",
-                            "test/testutil/driver.o",
-                            "test/testutil/format_output.o",
-                            "test/testutil/main.o",
-                            "test/testutil/output_helpers.o",
-                            "test/testutil/random.o",
-                            "test/testutil/stanza.o",
-                            "test/testutil/tap_bio.o",
-                            "test/testutil/test_cleanup.o",
-                            "test/testutil/tests.o",
-                            "test/testutil/testutil_init.o",
-                        ],
-                    "products" =>
-                        {
-                            "lib" =>
-                                [
-                                    "test/libtestutil.a",
-                                ],
-                        },
-                },
             "tools" =>
                 {
                     "products" =>
@@ -3317,10 +2317,6 @@ our %unified_info = (
         },
     "engines" =>
         [
-            "engines/capi",
-            "engines/dasync",
-            "engines/ossltest",
-            "engines/padlock",
         ],
     "extra" =>
         [
@@ -4251,351 +3247,6 @@ our %unified_info = (
                     "ssl",
                     "linux",
                 ],
-            "test/buildtest_aes.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "aes",
-                ],
-            "test/buildtest_asn1.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "asn1",
-                ],
-            "test/buildtest_asn1t.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "asn1t",
-                ],
-            "test/buildtest_async.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "async",
-                ],
-            "test/buildtest_bio.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "bio",
-                ],
-            "test/buildtest_blowfish.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "blowfish",
-                ],
-            "test/buildtest_bn.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "bn",
-                ],
-            "test/buildtest_buffer.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "buffer",
-                ],
-            "test/buildtest_camellia.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "camellia",
-                ],
-            "test/buildtest_cast.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "cast",
-                ],
-            "test/buildtest_cmac.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "cmac",
-                ],
-            "test/buildtest_cms.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "cms",
-                ],
-            "test/buildtest_comp.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "comp",
-                ],
-            "test/buildtest_conf.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "conf",
-                ],
-            "test/buildtest_conf_api.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "conf_api",
-                ],
-            "test/buildtest_crypto.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "crypto",
-                ],
-            "test/buildtest_ct.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "ct",
-                ],
-            "test/buildtest_des.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "des",
-                ],
-            "test/buildtest_dh.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "dh",
-                ],
-            "test/buildtest_dsa.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "dsa",
-                ],
-            "test/buildtest_dtls1.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "dtls1",
-                ],
-            "test/buildtest_e_os2.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "e_os2",
-                ],
-            "test/buildtest_ebcdic.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "ebcdic",
-                ],
-            "test/buildtest_ec.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "ec",
-                ],
-            "test/buildtest_ecdh.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "ecdh",
-                ],
-            "test/buildtest_ecdsa.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "ecdsa",
-                ],
-            "test/buildtest_engine.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "engine",
-                ],
-            "test/buildtest_evp.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "evp",
-                ],
-            "test/buildtest_hmac.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "hmac",
-                ],
-            "test/buildtest_idea.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "idea",
-                ],
-            "test/buildtest_kdf.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "kdf",
-                ],
-            "test/buildtest_lhash.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "lhash",
-                ],
-            "test/buildtest_md4.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "md4",
-                ],
-            "test/buildtest_md5.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "md5",
-                ],
-            "test/buildtest_mdc2.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "mdc2",
-                ],
-            "test/buildtest_modes.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "modes",
-                ],
-            "test/buildtest_obj_mac.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "obj_mac",
-                ],
-            "test/buildtest_objects.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "objects",
-                ],
-            "test/buildtest_ocsp.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "ocsp",
-                ],
-            "test/buildtest_opensslv.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "opensslv",
-                ],
-            "test/buildtest_ossl_typ.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "ossl_typ",
-                ],
-            "test/buildtest_pem.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "pem",
-                ],
-            "test/buildtest_pem2.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "pem2",
-                ],
-            "test/buildtest_pkcs12.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "pkcs12",
-                ],
-            "test/buildtest_pkcs7.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "pkcs7",
-                ],
-            "test/buildtest_rand.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "rand",
-                ],
-            "test/buildtest_rand_drbg.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "rand_drbg",
-                ],
-            "test/buildtest_rc2.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "rc2",
-                ],
-            "test/buildtest_rc4.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "rc4",
-                ],
-            "test/buildtest_ripemd.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "ripemd",
-                ],
-            "test/buildtest_rsa.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "rsa",
-                ],
-            "test/buildtest_safestack.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "safestack",
-                ],
-            "test/buildtest_seed.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "seed",
-                ],
-            "test/buildtest_sha.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "sha",
-                ],
-            "test/buildtest_srp.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "srp",
-                ],
-            "test/buildtest_srtp.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "srtp",
-                ],
-            "test/buildtest_ssl.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "ssl",
-                ],
-            "test/buildtest_ssl2.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "ssl2",
-                ],
-            "test/buildtest_stack.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "stack",
-                ],
-            "test/buildtest_store.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "store",
-                ],
-            "test/buildtest_symhacks.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "symhacks",
-                ],
-            "test/buildtest_tls1.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "tls1",
-                ],
-            "test/buildtest_ts.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "ts",
-                ],
-            "test/buildtest_txt_db.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "txt_db",
-                ],
-            "test/buildtest_ui.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "ui",
-                ],
-            "test/buildtest_whrlpool.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "whrlpool",
-                ],
-            "test/buildtest_x509.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "x509",
-                ],
-            "test/buildtest_x509_vfy.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "x509_vfy",
-                ],
-            "test/buildtest_x509v3.c" =>
-                [
-                    "test/generate_buildtest.pl",
-                    "x509v3",
-                ],
         },
     "includes" =>
         {
@@ -4975,21 +3626,39 @@ our %unified_info = (
                 [
                     "crypto",
                 ],
+            "crypto/aes/aesni-mb-x86_64.o" =>
+                [
+                    ".",
+                    "include",
+                ],
+            "crypto/aes/aesni-sha1-x86_64.o" =>
+                [
+                    ".",
+                    "include",
+                ],
+            "crypto/aes/aesni-sha256-x86_64.o" =>
+                [
+                    ".",
+                    "include",
+                ],
+            "crypto/aes/aesni-x86_64.o" =>
+                [
+                    ".",
+                    "include",
+                ],
             "crypto/aes/aest4-sparcv9.o" =>
                 [
                     "crypto",
                 ],
             "crypto/aes/aesv8-armx.o" =>
                 [
-                    ".",
-                    "include",
                     "crypto",
                 ],
             "crypto/aes/bsaes-armv7.o" =>
                 [
                     "crypto",
                 ],
-            "crypto/aes/vpaes-armv8.o" =>
+            "crypto/aes/vpaes-x86_64.o" =>
                 [
                     ".",
                     "include",
@@ -5001,14 +3670,7 @@ our %unified_info = (
                 ],
             "crypto/arm64cpuid.o" =>
                 [
-                    ".",
-                    "include",
                     "crypto",
-                ],
-            "crypto/armcap.o" =>
-                [
-                    ".",
-                    "include",
                 ],
             "crypto/armv4cpuid.o" =>
                 [
@@ -5532,7 +4194,7 @@ our %unified_info = (
                 [
                     "crypto",
                 ],
-            "crypto/bn/armv8-mont.o" =>
+            "crypto/bn/asm/x86_64-gcc.o" =>
                 [
                     ".",
                     "include",
@@ -5542,11 +4204,6 @@ our %unified_info = (
                     "crypto",
                 ],
             "crypto/bn/bn_add.o" =>
-                [
-                    ".",
-                    "include",
-                ],
-            "crypto/bn/bn_asm.o" =>
                 [
                     ".",
                     "include",
@@ -5701,6 +4358,21 @@ our %unified_info = (
                 [
                     "crypto",
                 ],
+            "crypto/bn/rsaz-avx2.o" =>
+                [
+                    ".",
+                    "include",
+                ],
+            "crypto/bn/rsaz-x86_64.o" =>
+                [
+                    ".",
+                    "include",
+                ],
+            "crypto/bn/rsaz_exp.o" =>
+                [
+                    ".",
+                    "include",
+                ],
             "crypto/bn/sparct4-mont.o" =>
                 [
                     "crypto",
@@ -5721,6 +4393,21 @@ our %unified_info = (
                 [
                     "crypto",
                 ],
+            "crypto/bn/x86_64-gf2m.o" =>
+                [
+                    ".",
+                    "include",
+                ],
+            "crypto/bn/x86_64-mont.o" =>
+                [
+                    ".",
+                    "include",
+                ],
+            "crypto/bn/x86_64-mont5.o" =>
+                [
+                    ".",
+                    "include",
+                ],
             "crypto/buffer/buf_err.o" =>
                 [
                     ".",
@@ -5735,12 +4422,7 @@ our %unified_info = (
                 [
                     ".",
                 ],
-            "crypto/camellia/camellia.o" =>
-                [
-                    ".",
-                    "include",
-                ],
-            "crypto/camellia/cmll_cbc.o" =>
+            "crypto/camellia/cmll-x86_64.o" =>
                 [
                     ".",
                     "include",
@@ -5805,13 +4487,16 @@ our %unified_info = (
                 ],
             "crypto/chacha/chacha-armv8.o" =>
                 [
-                    ".",
-                    "include",
                     "crypto",
                 ],
             "crypto/chacha/chacha-s390x.o" =>
                 [
                     "crypto",
+                ],
+            "crypto/chacha/chacha-x86_64.o" =>
+                [
+                    ".",
+                    "include",
                 ],
             "crypto/cmac/cm_ameth.o" =>
                 [
@@ -6486,13 +5171,16 @@ our %unified_info = (
                 ],
             "crypto/ec/ecp_nistz256-armv8.o" =>
                 [
-                    ".",
-                    "include",
                     "crypto",
                 ],
             "crypto/ec/ecp_nistz256-sparcv9.o" =>
                 [
                     "crypto",
+                ],
+            "crypto/ec/ecp_nistz256-x86_64.o" =>
+                [
+                    ".",
+                    "include",
                 ],
             "crypto/ec/ecp_nistz256.o" =>
                 [
@@ -6510,6 +5198,11 @@ our %unified_info = (
                     "include",
                 ],
             "crypto/ec/ecx_meth.o" =>
+                [
+                    ".",
+                    "include",
+                ],
+            "crypto/ec/x25519-x86_64.o" =>
                 [
                     ".",
                     "include",
@@ -7056,6 +5749,11 @@ our %unified_info = (
                 [
                     "crypto",
                 ],
+            "crypto/md5/md5-x86_64.o" =>
+                [
+                    ".",
+                    "include",
+                ],
             "crypto/md5/md5_dgst.o" =>
                 [
                     ".",
@@ -7087,6 +5785,11 @@ our %unified_info = (
                     "include",
                 ],
             "crypto/mem_sec.o" =>
+                [
+                    ".",
+                    "include",
+                ],
+            "crypto/modes/aesni-gcm-x86_64.o" =>
                 [
                     ".",
                     "include",
@@ -7134,10 +5837,13 @@ our %unified_info = (
                 [
                     "crypto",
                 ],
-            "crypto/modes/ghashv8-armx.o" =>
+            "crypto/modes/ghash-x86_64.o" =>
                 [
                     ".",
                     "include",
+                ],
+            "crypto/modes/ghashv8-armx.o" =>
+                [
                     "crypto",
                 ],
             "crypto/modes/ocb128.o" =>
@@ -7446,8 +6152,6 @@ our %unified_info = (
                 ],
             "crypto/poly1305/poly1305-armv8.o" =>
                 [
-                    ".",
-                    "include",
                     "crypto",
                 ],
             "crypto/poly1305/poly1305-mips.o" =>
@@ -7457,6 +6161,11 @@ our %unified_info = (
             "crypto/poly1305/poly1305-sparcv9.o" =>
                 [
                     "crypto",
+                ],
+            "crypto/poly1305/poly1305-x86_64.o" =>
+                [
+                    ".",
+                    "include",
                 ],
             "crypto/poly1305/poly1305.o" =>
                 [
@@ -7544,12 +6253,12 @@ our %unified_info = (
                     ".",
                     "include",
                 ],
-            "crypto/rc4/rc4_enc.o" =>
+            "crypto/rc4/rc4-md5-x86_64.o" =>
                 [
                     ".",
                     "include",
                 ],
-            "crypto/rc4/rc4_skey.o" =>
+            "crypto/rc4/rc4-x86_64.o" =>
                 [
                     ".",
                     "include",
@@ -7707,7 +6416,7 @@ our %unified_info = (
                 [
                     "crypto",
                 ],
-            "crypto/sha/keccak1600-armv8.o" =>
+            "crypto/sha/keccak1600-x86_64.o" =>
                 [
                     ".",
                     "include",
@@ -7718,9 +6427,12 @@ our %unified_info = (
                 ],
             "crypto/sha/sha1-armv8.o" =>
                 [
+                    "crypto",
+                ],
+            "crypto/sha/sha1-mb-x86_64.o" =>
+                [
                     ".",
                     "include",
-                    "crypto",
                 ],
             "crypto/sha/sha1-mips.o" =>
                 [
@@ -7733,6 +6445,11 @@ our %unified_info = (
             "crypto/sha/sha1-sparcv9.o" =>
                 [
                     "crypto",
+                ],
+            "crypto/sha/sha1-x86_64.o" =>
+                [
+                    ".",
+                    "include",
                 ],
             "crypto/sha/sha1_one.o" =>
                 [
@@ -7750,9 +6467,12 @@ our %unified_info = (
                 ],
             "crypto/sha/sha256-armv8.o" =>
                 [
+                    "crypto",
+                ],
+            "crypto/sha/sha256-mb-x86_64.o" =>
+                [
                     ".",
                     "include",
-                    "crypto",
                 ],
             "crypto/sha/sha256-mips.o" =>
                 [
@@ -7766,6 +6486,11 @@ our %unified_info = (
                 [
                     "crypto",
                 ],
+            "crypto/sha/sha256-x86_64.o" =>
+                [
+                    ".",
+                    "include",
+                ],
             "crypto/sha/sha256.o" =>
                 [
                     ".",
@@ -7777,8 +6502,6 @@ our %unified_info = (
                 ],
             "crypto/sha/sha512-armv8.o" =>
                 [
-                    ".",
-                    "include",
                     "crypto",
                 ],
             "crypto/sha/sha512-mips.o" =>
@@ -7792,6 +6515,11 @@ our %unified_info = (
             "crypto/sha/sha512-sparcv9.o" =>
                 [
                     "crypto",
+                ],
+            "crypto/sha/sha512-x86_64.o" =>
+                [
+                    ".",
+                    "include",
                 ],
             "crypto/sha/sha512.o" =>
                 [
@@ -7998,7 +6726,7 @@ our %unified_info = (
                     ".",
                     "include",
                 ],
-            "crypto/whrlpool/wp_block.o" =>
+            "crypto/whrlpool/wp-x86_64.o" =>
                 [
                     ".",
                     "include",
@@ -8373,68 +7101,24 @@ our %unified_info = (
                     ".",
                     "include",
                 ],
+            "crypto/x86_64cpuid.o" =>
+                [
+                    ".",
+                    "include",
+                ],
             "engines/e_capi.o" =>
                 [
+                    ".",
                     "include",
                 ],
-            "engines/e_dasync.o" =>
+            "engines/e_padlock-x86_64.o" =>
                 [
-                    "include",
-                ],
-            "engines/e_ossltest.o" =>
-                [
+                    ".",
                     "include",
                 ],
             "engines/e_padlock.o" =>
                 [
-                    "include",
-                ],
-            "fuzz/asn1.o" =>
-                [
-                    "include",
-                ],
-            "fuzz/asn1parse.o" =>
-                [
-                    "include",
-                ],
-            "fuzz/bignum.o" =>
-                [
-                    "include",
-                ],
-            "fuzz/bndiv.o" =>
-                [
-                    "include",
-                ],
-            "fuzz/client.o" =>
-                [
-                    "include",
-                ],
-            "fuzz/cms.o" =>
-                [
-                    "include",
-                ],
-            "fuzz/conf.o" =>
-                [
-                    "include",
-                ],
-            "fuzz/crl.o" =>
-                [
-                    "include",
-                ],
-            "fuzz/ct.o" =>
-                [
-                    "include",
-                ],
-            "fuzz/server.o" =>
-                [
-                    "include",
-                ],
-            "fuzz/test-corpus.o" =>
-                [
-                    "include",
-                ],
-            "fuzz/x509.o" =>
-                [
+                    ".",
                     "include",
                 ],
             "include/crypto/bn_conf.h" =>
@@ -8669,833 +7353,9 @@ our %unified_info = (
                     ".",
                     "include",
                 ],
-            "test/aborttest.o" =>
-                [
-                    "include",
-                ],
-            "test/afalgtest.o" =>
-                [
-                    "include",
-                ],
-            "test/asn1_decode_test.o" =>
-                [
-                    "include",
-                ],
-            "test/asn1_encode_test.o" =>
-                [
-                    "include",
-                ],
-            "test/asn1_internal_test.o" =>
-                [
-                    ".",
-                    "include",
-                ],
-            "test/asn1_string_table_test.o" =>
-                [
-                    "include",
-                ],
-            "test/asn1_time_test.o" =>
-                [
-                    "include",
-                ],
-            "test/asynciotest.o" =>
-                [
-                    "include",
-                ],
-            "test/asynctest.o" =>
-                [
-                    "include",
-                ],
-            "test/bad_dtls_test.o" =>
-                [
-                    "include",
-                ],
-            "test/bftest.o" =>
-                [
-                    "include",
-                ],
-            "test/bio_callback_test.o" =>
-                [
-                    "include",
-                ],
-            "test/bio_enc_test.o" =>
-                [
-                    "include",
-                ],
-            "test/bio_memleak_test.o" =>
-                [
-                    "include",
-                ],
-            "test/bioprinttest.o" =>
-                [
-                    "include",
-                ],
-            "test/bntest.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_aes.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_asn1.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_asn1t.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_async.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_bio.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_blowfish.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_bn.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_buffer.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_camellia.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_cast.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_cmac.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_cms.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_comp.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_conf.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_conf_api.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_crypto.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_ct.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_des.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_dh.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_dsa.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_dtls1.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_e_os2.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_ebcdic.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_ec.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_ecdh.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_ecdsa.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_engine.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_evp.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_hmac.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_idea.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_kdf.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_lhash.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_md4.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_md5.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_mdc2.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_modes.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_obj_mac.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_objects.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_ocsp.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_opensslv.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_ossl_typ.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_pem.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_pem2.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_pkcs12.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_pkcs7.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_rand.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_rand_drbg.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_rc2.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_rc4.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_ripemd.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_rsa.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_safestack.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_seed.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_sha.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_srp.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_srtp.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_ssl.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_ssl2.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_stack.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_store.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_symhacks.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_tls1.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_ts.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_txt_db.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_ui.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_whrlpool.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_x509.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_x509_vfy.o" =>
-                [
-                    "include",
-                ],
-            "test/buildtest_x509v3.o" =>
-                [
-                    "include",
-                ],
-            "test/casttest.o" =>
-                [
-                    "include",
-                ],
-            "test/chacha_internal_test.o" =>
-                [
-                    ".",
-                    "include",
-                ],
-            "test/cipherbytes_test.o" =>
-                [
-                    "include",
-                ],
-            "test/cipherlist_test.o" =>
-                [
-                    "include",
-                ],
-            "test/ciphername_test.o" =>
-                [
-                    "include",
-                ],
-            "test/clienthellotest.o" =>
-                [
-                    "include",
-                ],
-            "test/cmactest.o" =>
-                [
-                    "include",
-                ],
-            "test/cmsapitest.o" =>
-                [
-                    "include",
-                ],
-            "test/conf_include_test.o" =>
-                [
-                    "include",
-                ],
-            "test/constant_time_test.o" =>
-                [
-                    "include",
-                ],
-            "test/crltest.o" =>
-                [
-                    "include",
-                ],
-            "test/ct_test.o" =>
-                [
-                    "include",
-                ],
-            "test/ctype_internal_test.o" =>
-                [
-                    ".",
-                    "include",
-                ],
-            "test/curve448_internal_test.o" =>
-                [
-                    ".",
-                    "include",
-                    "crypto/ec/curve448",
-                ],
-            "test/d2i_test.o" =>
-                [
-                    "include",
-                ],
-            "test/danetest.o" =>
-                [
-                    "include",
-                ],
-            "test/destest.o" =>
-                [
-                    "include",
-                ],
-            "test/dhtest.o" =>
-                [
-                    "include",
-                ],
-            "test/drbg_cavs_data.o" =>
-                [
-                    "include",
-                    "test",
-                    ".",
-                ],
-            "test/drbg_cavs_test.o" =>
-                [
-                    "include",
-                    "test",
-                    ".",
-                ],
-            "test/drbgtest.o" =>
-                [
-                    "include",
-                ],
-            "test/dsa_no_digest_size_test.o" =>
-                [
-                    "include",
-                ],
-            "test/dsatest.o" =>
-                [
-                    "include",
-                ],
-            "test/dtls_mtu_test.o" =>
-                [
-                    ".",
-                    "include",
-                ],
-            "test/dtlstest.o" =>
-                [
-                    "include",
-                ],
-            "test/dtlsv1listentest.o" =>
-                [
-                    "include",
-                ],
-            "test/ec_internal_test.o" =>
-                [
-                    "include",
-                    "crypto/ec",
-                ],
-            "test/ecdsatest.o" =>
-                [
-                    "include",
-                ],
-            "test/ecstresstest.o" =>
-                [
-                    "include",
-                ],
-            "test/ectest.o" =>
-                [
-                    "include",
-                ],
-            "test/enginetest.o" =>
-                [
-                    "include",
-                ],
-            "test/errtest.o" =>
-                [
-                    "include",
-                ],
-            "test/evp_extra_test.o" =>
-                [
-                    "include",
-                ],
-            "test/evp_test.o" =>
-                [
-                    "include",
-                ],
-            "test/exdatatest.o" =>
-                [
-                    "include",
-                ],
-            "test/exptest.o" =>
-                [
-                    "include",
-                ],
-            "test/fatalerrtest.o" =>
-                [
-                    "include",
-                ],
-            "test/gmdifftest.o" =>
-                [
-                    "include",
-                ],
-            "test/gosttest.o" =>
-                [
-                    "include",
-                    ".",
-                ],
-            "test/handshake_helper.o" =>
-                [
-                    ".",
-                    "include",
-                ],
-            "test/hmactest.o" =>
-                [
-                    "include",
-                ],
-            "test/ideatest.o" =>
-                [
-                    "include",
-                ],
-            "test/igetest.o" =>
-                [
-                    "include",
-                ],
-            "test/lhash_test.o" =>
-                [
-                    "include",
-                ],
-            "test/md2test.o" =>
-                [
-                    "include",
-                ],
-            "test/mdc2_internal_test.o" =>
-                [
-                    ".",
-                    "include",
-                ],
-            "test/mdc2test.o" =>
-                [
-                    "include",
-                ],
-            "test/memleaktest.o" =>
-                [
-                    "include",
-                ],
-            "test/modes_internal_test.o" =>
-                [
-                    ".",
-                    "include",
-                ],
-            "test/ocspapitest.o" =>
-                [
-                    "include",
-                ],
-            "test/packettest.o" =>
-                [
-                    "include",
-                ],
-            "test/pbelutest.o" =>
-                [
-                    "include",
-                ],
-            "test/pemtest.o" =>
-                [
-                    "include",
-                ],
-            "test/pkey_meth_kdf_test.o" =>
-                [
-                    "include",
-                ],
-            "test/pkey_meth_test.o" =>
-                [
-                    "include",
-                ],
-            "test/poly1305_internal_test.o" =>
-                [
-                    ".",
-                    "include",
-                ],
-            "test/rc2test.o" =>
-                [
-                    "include",
-                ],
-            "test/rc4test.o" =>
-                [
-                    "include",
-                ],
-            "test/rc5test.o" =>
-                [
-                    "include",
-                ],
-            "test/rdrand_sanitytest.o" =>
-                [
-                    "include",
-                ],
-            "test/recordlentest.o" =>
-                [
-                    "include",
-                ],
-            "test/rsa_complex.o" =>
-                [
-                    "include",
-                ],
-            "test/rsa_mp_test.o" =>
-                [
-                    "include",
-                ],
-            "test/rsa_test.o" =>
-                [
-                    "include",
-                ],
-            "test/sanitytest.o" =>
-                [
-                    "include",
-                ],
-            "test/secmemtest.o" =>
-                [
-                    "include",
-                ],
-            "test/servername_test.o" =>
-                [
-                    "include",
-                ],
-            "test/shlibloadtest.o" =>
-                [
-                    "include",
-                ],
-            "test/siphash_internal_test.o" =>
-                [
-                    ".",
-                    "include",
-                ],
-            "test/sm2_internal_test.o" =>
-                [
-                    "include",
-                ],
-            "test/sm4_internal_test.o" =>
-                [
-                    ".",
-                    "include",
-                ],
-            "test/srptest.o" =>
-                [
-                    "include",
-                ],
-            "test/ssl_cert_table_internal_test.o" =>
-                [
-                    ".",
-                    "include",
-                ],
-            "test/ssl_ctx_test.o" =>
-                [
-                    "include",
-                ],
-            "test/ssl_test.o" =>
-                [
-                    "include",
-                ],
-            "test/ssl_test_ctx.o" =>
-                [
-                    "include",
-                ],
-            "test/ssl_test_ctx_test.o" =>
-                [
-                    "include",
-                ],
-            "test/sslapitest.o" =>
-                [
-                    "include",
-                    ".",
-                ],
-            "test/sslbuffertest.o" =>
-                [
-                    "include",
-                ],
-            "test/sslcorrupttest.o" =>
-                [
-                    "include",
-                ],
-            "test/ssltest_old.o" =>
-                [
-                    ".",
-                    "include",
-                ],
-            "test/ssltestlib.o" =>
-                [
-                    ".",
-                    "include",
-                ],
-            "test/stack_test.o" =>
-                [
-                    "include",
-                ],
-            "test/sysdefaulttest.o" =>
-                [
-                    "include",
-                ],
-            "test/test_test.o" =>
-                [
-                    "include",
-                ],
-            "test/testutil/basic_output.o" =>
-                [
-                    "include",
-                ],
-            "test/testutil/cb.o" =>
-                [
-                    "include",
-                ],
-            "test/testutil/driver.o" =>
-                [
-                    "include",
-                ],
-            "test/testutil/format_output.o" =>
-                [
-                    "include",
-                ],
-            "test/testutil/main.o" =>
-                [
-                    "include",
-                ],
-            "test/testutil/output_helpers.o" =>
-                [
-                    "include",
-                ],
-            "test/testutil/random.o" =>
-                [
-                    "include",
-                ],
-            "test/testutil/stanza.o" =>
-                [
-                    "include",
-                ],
-            "test/testutil/tap_bio.o" =>
-                [
-                    "include",
-                ],
-            "test/testutil/test_cleanup.o" =>
-                [
-                    "include",
-                ],
-            "test/testutil/tests.o" =>
-                [
-                    "include",
-                ],
-            "test/testutil/testutil_init.o" =>
-                [
-                    "include",
-                ],
-            "test/threadstest.o" =>
-                [
-                    "include",
-                ],
-            "test/time_offset_test.o" =>
-                [
-                    "include",
-                ],
-            "test/tls13ccstest.o" =>
-                [
-                    "include",
-                ],
-            "test/tls13encryptiontest.o" =>
-                [
-                    ".",
-                    "include",
-                ],
-            "test/tls13secretstest.o" =>
-                [
-                    ".",
-                    "include",
-                ],
-            "test/uitest.o" =>
-                [
-                    ".",
-                    "include",
-                    "apps",
-                ],
-            "test/v3ext.o" =>
-                [
-                    "include",
-                ],
-            "test/v3nametest.o" =>
-                [
-                    "include",
-                ],
-            "test/verify_extra_test.o" =>
-                [
-                    "include",
-                ],
-            "test/versions.o" =>
-                [
-                    "include",
-                ],
-            "test/wpackettest.o" =>
-                [
-                    "include",
-                ],
-            "test/x509_check_cert_pkey_test.o" =>
-                [
-                    "include",
-                ],
-            "test/x509_dup_cert_test.o" =>
-                [
-                    "include",
-                ],
-            "test/x509_internal_test.o" =>
-                [
-                    ".",
-                    "include",
-                ],
-            "test/x509_time_test.o" =>
-                [
-                    "include",
-                ],
-            "test/x509aux.o" =>
-                [
-                    "include",
-                ],
         },
     "install" =>
         {
-            "engines" =>
-                [
-                    "engines/capi",
-                    "engines/padlock",
-                ],
             "libraries" =>
                 [
                     "libcrypto",
@@ -9520,7 +7380,6 @@ our %unified_info = (
             "apps/libapps.a",
             "libcrypto",
             "libssl",
-            "test/libtestutil.a",
         ],
     "overrides" =>
         [
@@ -9528,199 +7387,6 @@ our %unified_info = (
     "programs" =>
         [
             "apps/openssl",
-            "fuzz/asn1-test",
-            "fuzz/asn1parse-test",
-            "fuzz/bignum-test",
-            "fuzz/bndiv-test",
-            "fuzz/client-test",
-            "fuzz/cms-test",
-            "fuzz/conf-test",
-            "fuzz/crl-test",
-            "fuzz/ct-test",
-            "fuzz/server-test",
-            "fuzz/x509-test",
-            "test/aborttest",
-            "test/afalgtest",
-            "test/asn1_decode_test",
-            "test/asn1_encode_test",
-            "test/asn1_internal_test",
-            "test/asn1_string_table_test",
-            "test/asn1_time_test",
-            "test/asynciotest",
-            "test/asynctest",
-            "test/bad_dtls_test",
-            "test/bftest",
-            "test/bio_callback_test",
-            "test/bio_enc_test",
-            "test/bio_memleak_test",
-            "test/bioprinttest",
-            "test/bntest",
-            "test/buildtest_c_aes",
-            "test/buildtest_c_asn1",
-            "test/buildtest_c_asn1t",
-            "test/buildtest_c_async",
-            "test/buildtest_c_bio",
-            "test/buildtest_c_blowfish",
-            "test/buildtest_c_bn",
-            "test/buildtest_c_buffer",
-            "test/buildtest_c_camellia",
-            "test/buildtest_c_cast",
-            "test/buildtest_c_cmac",
-            "test/buildtest_c_cms",
-            "test/buildtest_c_comp",
-            "test/buildtest_c_conf",
-            "test/buildtest_c_conf_api",
-            "test/buildtest_c_crypto",
-            "test/buildtest_c_ct",
-            "test/buildtest_c_des",
-            "test/buildtest_c_dh",
-            "test/buildtest_c_dsa",
-            "test/buildtest_c_dtls1",
-            "test/buildtest_c_e_os2",
-            "test/buildtest_c_ebcdic",
-            "test/buildtest_c_ec",
-            "test/buildtest_c_ecdh",
-            "test/buildtest_c_ecdsa",
-            "test/buildtest_c_engine",
-            "test/buildtest_c_evp",
-            "test/buildtest_c_hmac",
-            "test/buildtest_c_idea",
-            "test/buildtest_c_kdf",
-            "test/buildtest_c_lhash",
-            "test/buildtest_c_md4",
-            "test/buildtest_c_md5",
-            "test/buildtest_c_mdc2",
-            "test/buildtest_c_modes",
-            "test/buildtest_c_obj_mac",
-            "test/buildtest_c_objects",
-            "test/buildtest_c_ocsp",
-            "test/buildtest_c_opensslv",
-            "test/buildtest_c_ossl_typ",
-            "test/buildtest_c_pem",
-            "test/buildtest_c_pem2",
-            "test/buildtest_c_pkcs12",
-            "test/buildtest_c_pkcs7",
-            "test/buildtest_c_rand",
-            "test/buildtest_c_rand_drbg",
-            "test/buildtest_c_rc2",
-            "test/buildtest_c_rc4",
-            "test/buildtest_c_ripemd",
-            "test/buildtest_c_rsa",
-            "test/buildtest_c_safestack",
-            "test/buildtest_c_seed",
-            "test/buildtest_c_sha",
-            "test/buildtest_c_srp",
-            "test/buildtest_c_srtp",
-            "test/buildtest_c_ssl",
-            "test/buildtest_c_ssl2",
-            "test/buildtest_c_stack",
-            "test/buildtest_c_store",
-            "test/buildtest_c_symhacks",
-            "test/buildtest_c_tls1",
-            "test/buildtest_c_ts",
-            "test/buildtest_c_txt_db",
-            "test/buildtest_c_ui",
-            "test/buildtest_c_whrlpool",
-            "test/buildtest_c_x509",
-            "test/buildtest_c_x509_vfy",
-            "test/buildtest_c_x509v3",
-            "test/casttest",
-            "test/chacha_internal_test",
-            "test/cipherbytes_test",
-            "test/cipherlist_test",
-            "test/ciphername_test",
-            "test/clienthellotest",
-            "test/cmactest",
-            "test/cmsapitest",
-            "test/conf_include_test",
-            "test/constant_time_test",
-            "test/crltest",
-            "test/ct_test",
-            "test/ctype_internal_test",
-            "test/curve448_internal_test",
-            "test/d2i_test",
-            "test/danetest",
-            "test/destest",
-            "test/dhtest",
-            "test/drbg_cavs_test",
-            "test/drbgtest",
-            "test/dsa_no_digest_size_test",
-            "test/dsatest",
-            "test/dtls_mtu_test",
-            "test/dtlstest",
-            "test/dtlsv1listentest",
-            "test/ec_internal_test",
-            "test/ecdsatest",
-            "test/ecstresstest",
-            "test/ectest",
-            "test/enginetest",
-            "test/errtest",
-            "test/evp_extra_test",
-            "test/evp_test",
-            "test/exdatatest",
-            "test/exptest",
-            "test/fatalerrtest",
-            "test/gmdifftest",
-            "test/gosttest",
-            "test/hmactest",
-            "test/ideatest",
-            "test/igetest",
-            "test/lhash_test",
-            "test/md2test",
-            "test/mdc2_internal_test",
-            "test/mdc2test",
-            "test/memleaktest",
-            "test/modes_internal_test",
-            "test/ocspapitest",
-            "test/packettest",
-            "test/pbelutest",
-            "test/pemtest",
-            "test/pkey_meth_kdf_test",
-            "test/pkey_meth_test",
-            "test/poly1305_internal_test",
-            "test/rc2test",
-            "test/rc4test",
-            "test/rc5test",
-            "test/rdrand_sanitytest",
-            "test/recordlentest",
-            "test/rsa_complex",
-            "test/rsa_mp_test",
-            "test/rsa_test",
-            "test/sanitytest",
-            "test/secmemtest",
-            "test/servername_test",
-            "test/shlibloadtest",
-            "test/siphash_internal_test",
-            "test/sm2_internal_test",
-            "test/sm4_internal_test",
-            "test/srptest",
-            "test/ssl_cert_table_internal_test",
-            "test/ssl_ctx_test",
-            "test/ssl_test",
-            "test/ssl_test_ctx_test",
-            "test/sslapitest",
-            "test/sslbuffertest",
-            "test/sslcorrupttest",
-            "test/ssltest_old",
-            "test/stack_test",
-            "test/sysdefaulttest",
-            "test/test_test",
-            "test/threadstest",
-            "test/time_offset_test",
-            "test/tls13ccstest",
-            "test/tls13encryptiontest",
-            "test/tls13secretstest",
-            "test/uitest",
-            "test/v3ext",
-            "test/v3nametest",
-            "test/verify_extra_test",
-            "test/versions",
-            "test/wpackettest",
-            "test/x509_check_cert_pkey_test",
-            "test/x509_dup_cert_test",
-            "test/x509_internal_test",
-            "test/x509_time_test",
-            "test/x509aux",
         ],
     "rawlines" =>
         [
@@ -9768,19 +7434,6 @@ our %unified_info = (
         ],
     "shared_sources" =>
         {
-            "libcrypto" =>
-                [
-                    "libcrypto.map",
-                ],
-            "libssl" =>
-                [
-                    "libssl.map",
-                ],
-        },
-    "sharednames" =>
-        {
-            "libcrypto" => "libcrypto",
-            "libssl" => "libssl",
         },
     "sources" =>
         {
@@ -10095,25 +7748,29 @@ our %unified_info = (
                 [
                     "crypto/aes/aes_wrap.c",
                 ],
-            "crypto/aes/aesv8-armx.o" =>
+            "crypto/aes/aesni-mb-x86_64.o" =>
                 [
-                    "crypto/aes/aesv8-armx.S",
+                    "crypto/aes/aesni-mb-x86_64.s",
                 ],
-            "crypto/aes/vpaes-armv8.o" =>
+            "crypto/aes/aesni-sha1-x86_64.o" =>
                 [
-                    "crypto/aes/vpaes-armv8.S",
+                    "crypto/aes/aesni-sha1-x86_64.s",
+                ],
+            "crypto/aes/aesni-sha256-x86_64.o" =>
+                [
+                    "crypto/aes/aesni-sha256-x86_64.s",
+                ],
+            "crypto/aes/aesni-x86_64.o" =>
+                [
+                    "crypto/aes/aesni-x86_64.s",
+                ],
+            "crypto/aes/vpaes-x86_64.o" =>
+                [
+                    "crypto/aes/vpaes-x86_64.s",
                 ],
             "crypto/aria/aria.o" =>
                 [
                     "crypto/aria/aria.c",
-                ],
-            "crypto/arm64cpuid.o" =>
-                [
-                    "crypto/arm64cpuid.S",
-                ],
-            "crypto/armcap.o" =>
-                [
-                    "crypto/armcap.c",
                 ],
             "crypto/asn1/a_bitstr.o" =>
                 [
@@ -10523,17 +8180,13 @@ our %unified_info = (
                 [
                     "crypto/blake2/m_blake2s.c",
                 ],
-            "crypto/bn/armv8-mont.o" =>
+            "crypto/bn/asm/x86_64-gcc.o" =>
                 [
-                    "crypto/bn/armv8-mont.S",
+                    "crypto/bn/asm/x86_64-gcc.c",
                 ],
             "crypto/bn/bn_add.o" =>
                 [
                     "crypto/bn/bn_add.c",
-                ],
-            "crypto/bn/bn_asm.o" =>
-                [
-                    "crypto/bn/bn_asm.c",
                 ],
             "crypto/bn/bn_blind.o" =>
                 [
@@ -10651,6 +8304,30 @@ our %unified_info = (
                 [
                     "crypto/bn/bn_x931p.c",
                 ],
+            "crypto/bn/rsaz-avx2.o" =>
+                [
+                    "crypto/bn/rsaz-avx2.s",
+                ],
+            "crypto/bn/rsaz-x86_64.o" =>
+                [
+                    "crypto/bn/rsaz-x86_64.s",
+                ],
+            "crypto/bn/rsaz_exp.o" =>
+                [
+                    "crypto/bn/rsaz_exp.c",
+                ],
+            "crypto/bn/x86_64-gf2m.o" =>
+                [
+                    "crypto/bn/x86_64-gf2m.s",
+                ],
+            "crypto/bn/x86_64-mont.o" =>
+                [
+                    "crypto/bn/x86_64-mont.s",
+                ],
+            "crypto/bn/x86_64-mont5.o" =>
+                [
+                    "crypto/bn/x86_64-mont5.s",
+                ],
             "crypto/buffer/buf_err.o" =>
                 [
                     "crypto/buffer/buf_err.c",
@@ -10659,13 +8336,9 @@ our %unified_info = (
                 [
                     "crypto/buffer/buffer.c",
                 ],
-            "crypto/camellia/camellia.o" =>
+            "crypto/camellia/cmll-x86_64.o" =>
                 [
-                    "crypto/camellia/camellia.c",
-                ],
-            "crypto/camellia/cmll_cbc.o" =>
-                [
-                    "crypto/camellia/cmll_cbc.c",
+                    "crypto/camellia/cmll-x86_64.s",
                 ],
             "crypto/camellia/cmll_cfb.o" =>
                 [
@@ -10707,9 +8380,9 @@ our %unified_info = (
                 [
                     "crypto/cast/c_skey.c",
                 ],
-            "crypto/chacha/chacha-armv8.o" =>
+            "crypto/chacha/chacha-x86_64.o" =>
                 [
-                    "crypto/chacha/chacha-armv8.S",
+                    "crypto/chacha/chacha-x86_64.s",
                 ],
             "crypto/cmac/cm_ameth.o" =>
                 [
@@ -11231,9 +8904,9 @@ our %unified_info = (
                 [
                     "crypto/ec/ecp_nistputil.c",
                 ],
-            "crypto/ec/ecp_nistz256-armv8.o" =>
+            "crypto/ec/ecp_nistz256-x86_64.o" =>
                 [
-                    "crypto/ec/ecp_nistz256-armv8.S",
+                    "crypto/ec/ecp_nistz256-x86_64.s",
                 ],
             "crypto/ec/ecp_nistz256.o" =>
                 [
@@ -11250,6 +8923,10 @@ our %unified_info = (
             "crypto/ec/ecx_meth.o" =>
                 [
                     "crypto/ec/ecx_meth.c",
+                ],
+            "crypto/ec/x25519-x86_64.o" =>
+                [
+                    "crypto/ec/x25519-x86_64.s",
                 ],
             "crypto/engine/eng_all.o" =>
                 [
@@ -11671,6 +9348,10 @@ our %unified_info = (
                 [
                     "crypto/md4/md4_one.c",
                 ],
+            "crypto/md5/md5-x86_64.o" =>
+                [
+                    "crypto/md5/md5-x86_64.s",
+                ],
             "crypto/md5/md5_dgst.o" =>
                 [
                     "crypto/md5/md5_dgst.c",
@@ -11699,6 +9380,10 @@ our %unified_info = (
                 [
                     "crypto/mem_sec.c",
                 ],
+            "crypto/modes/aesni-gcm-x86_64.o" =>
+                [
+                    "crypto/modes/aesni-gcm-x86_64.s",
+                ],
             "crypto/modes/cbc128.o" =>
                 [
                     "crypto/modes/cbc128.c",
@@ -11723,9 +9408,9 @@ our %unified_info = (
                 [
                     "crypto/modes/gcm128.c",
                 ],
-            "crypto/modes/ghashv8-armx.o" =>
+            "crypto/modes/ghash-x86_64.o" =>
                 [
-                    "crypto/modes/ghashv8-armx.S",
+                    "crypto/modes/ghash-x86_64.s",
                 ],
             "crypto/modes/ocb128.o" =>
                 [
@@ -11967,9 +9652,9 @@ our %unified_info = (
                 [
                     "crypto/pkcs7/pkcs7err.c",
                 ],
-            "crypto/poly1305/poly1305-armv8.o" =>
+            "crypto/poly1305/poly1305-x86_64.o" =>
                 [
-                    "crypto/poly1305/poly1305-armv8.S",
+                    "crypto/poly1305/poly1305-x86_64.s",
                 ],
             "crypto/poly1305/poly1305.o" =>
                 [
@@ -12039,13 +9724,13 @@ our %unified_info = (
                 [
                     "crypto/rc2/rc2ofb64.c",
                 ],
-            "crypto/rc4/rc4_enc.o" =>
+            "crypto/rc4/rc4-md5-x86_64.o" =>
                 [
-                    "crypto/rc4/rc4_enc.c",
+                    "crypto/rc4/rc4-md5-x86_64.s",
                 ],
-            "crypto/rc4/rc4_skey.o" =>
+            "crypto/rc4/rc4-x86_64.o" =>
                 [
-                    "crypto/rc4/rc4_skey.c",
+                    "crypto/rc4/rc4-x86_64.s",
                 ],
             "crypto/ripemd/rmd_dgst.o" =>
                 [
@@ -12163,13 +9848,17 @@ our %unified_info = (
                 [
                     "crypto/seed/seed_ofb.c",
                 ],
-            "crypto/sha/keccak1600-armv8.o" =>
+            "crypto/sha/keccak1600-x86_64.o" =>
                 [
-                    "crypto/sha/keccak1600-armv8.S",
+                    "crypto/sha/keccak1600-x86_64.s",
                 ],
-            "crypto/sha/sha1-armv8.o" =>
+            "crypto/sha/sha1-mb-x86_64.o" =>
                 [
-                    "crypto/sha/sha1-armv8.S",
+                    "crypto/sha/sha1-mb-x86_64.s",
+                ],
+            "crypto/sha/sha1-x86_64.o" =>
+                [
+                    "crypto/sha/sha1-x86_64.s",
                 ],
             "crypto/sha/sha1_one.o" =>
                 [
@@ -12179,17 +9868,21 @@ our %unified_info = (
                 [
                     "crypto/sha/sha1dgst.c",
                 ],
-            "crypto/sha/sha256-armv8.o" =>
+            "crypto/sha/sha256-mb-x86_64.o" =>
                 [
-                    "crypto/sha/sha256-armv8.S",
+                    "crypto/sha/sha256-mb-x86_64.s",
+                ],
+            "crypto/sha/sha256-x86_64.o" =>
+                [
+                    "crypto/sha/sha256-x86_64.s",
                 ],
             "crypto/sha/sha256.o" =>
                 [
                     "crypto/sha/sha256.c",
                 ],
-            "crypto/sha/sha512-armv8.o" =>
+            "crypto/sha/sha512-x86_64.o" =>
                 [
-                    "crypto/sha/sha512-armv8.S",
+                    "crypto/sha/sha512-x86_64.s",
                 ],
             "crypto/sha/sha512.o" =>
                 [
@@ -12355,9 +10048,9 @@ our %unified_info = (
                 [
                     "crypto/uid.c",
                 ],
-            "crypto/whrlpool/wp_block.o" =>
+            "crypto/whrlpool/wp-x86_64.o" =>
                 [
-                    "crypto/whrlpool/wp_block.c",
+                    "crypto/whrlpool/wp-x86_64.s",
                 ],
             "crypto/whrlpool/wp_dgst.o" =>
                 [
@@ -12655,140 +10348,21 @@ our %unified_info = (
                 [
                     "crypto/x509v3/v3err.c",
                 ],
-            "engines/capi" =>
+            "crypto/x86_64cpuid.o" =>
                 [
-                    "engines/e_capi.o",
-                ],
-            "engines/dasync" =>
-                [
-                    "engines/e_dasync.o",
+                    "crypto/x86_64cpuid.s",
                 ],
             "engines/e_capi.o" =>
                 [
                     "engines/e_capi.c",
                 ],
-            "engines/e_dasync.o" =>
+            "engines/e_padlock-x86_64.o" =>
                 [
-                    "engines/e_dasync.c",
-                ],
-            "engines/e_ossltest.o" =>
-                [
-                    "engines/e_ossltest.c",
+                    "engines/e_padlock-x86_64.s",
                 ],
             "engines/e_padlock.o" =>
                 [
                     "engines/e_padlock.c",
-                ],
-            "engines/ossltest" =>
-                [
-                    "engines/e_ossltest.o",
-                ],
-            "engines/padlock" =>
-                [
-                    "engines/e_padlock.o",
-                ],
-            "fuzz/asn1-test" =>
-                [
-                    "fuzz/asn1.o",
-                    "fuzz/test-corpus.o",
-                ],
-            "fuzz/asn1.o" =>
-                [
-                    "fuzz/asn1.c",
-                ],
-            "fuzz/asn1parse-test" =>
-                [
-                    "fuzz/asn1parse.o",
-                    "fuzz/test-corpus.o",
-                ],
-            "fuzz/asn1parse.o" =>
-                [
-                    "fuzz/asn1parse.c",
-                ],
-            "fuzz/bignum-test" =>
-                [
-                    "fuzz/bignum.o",
-                    "fuzz/test-corpus.o",
-                ],
-            "fuzz/bignum.o" =>
-                [
-                    "fuzz/bignum.c",
-                ],
-            "fuzz/bndiv-test" =>
-                [
-                    "fuzz/bndiv.o",
-                    "fuzz/test-corpus.o",
-                ],
-            "fuzz/bndiv.o" =>
-                [
-                    "fuzz/bndiv.c",
-                ],
-            "fuzz/client-test" =>
-                [
-                    "fuzz/client.o",
-                    "fuzz/test-corpus.o",
-                ],
-            "fuzz/client.o" =>
-                [
-                    "fuzz/client.c",
-                ],
-            "fuzz/cms-test" =>
-                [
-                    "fuzz/cms.o",
-                    "fuzz/test-corpus.o",
-                ],
-            "fuzz/cms.o" =>
-                [
-                    "fuzz/cms.c",
-                ],
-            "fuzz/conf-test" =>
-                [
-                    "fuzz/conf.o",
-                    "fuzz/test-corpus.o",
-                ],
-            "fuzz/conf.o" =>
-                [
-                    "fuzz/conf.c",
-                ],
-            "fuzz/crl-test" =>
-                [
-                    "fuzz/crl.o",
-                    "fuzz/test-corpus.o",
-                ],
-            "fuzz/crl.o" =>
-                [
-                    "fuzz/crl.c",
-                ],
-            "fuzz/ct-test" =>
-                [
-                    "fuzz/ct.o",
-                    "fuzz/test-corpus.o",
-                ],
-            "fuzz/ct.o" =>
-                [
-                    "fuzz/ct.c",
-                ],
-            "fuzz/server-test" =>
-                [
-                    "fuzz/server.o",
-                    "fuzz/test-corpus.o",
-                ],
-            "fuzz/server.o" =>
-                [
-                    "fuzz/server.c",
-                ],
-            "fuzz/test-corpus.o" =>
-                [
-                    "fuzz/test-corpus.c",
-                ],
-            "fuzz/x509-test" =>
-                [
-                    "fuzz/test-corpus.o",
-                    "fuzz/x509.o",
-                ],
-            "fuzz/x509.o" =>
-                [
-                    "fuzz/x509.c",
                 ],
             "libcrypto" =>
                 [
@@ -12800,11 +10374,12 @@ our %unified_info = (
                     "crypto/aes/aes_misc.o",
                     "crypto/aes/aes_ofb.o",
                     "crypto/aes/aes_wrap.o",
-                    "crypto/aes/aesv8-armx.o",
-                    "crypto/aes/vpaes-armv8.o",
+                    "crypto/aes/aesni-mb-x86_64.o",
+                    "crypto/aes/aesni-sha1-x86_64.o",
+                    "crypto/aes/aesni-sha256-x86_64.o",
+                    "crypto/aes/aesni-x86_64.o",
+                    "crypto/aes/vpaes-x86_64.o",
                     "crypto/aria/aria.o",
-                    "crypto/arm64cpuid.o",
-                    "crypto/armcap.o",
                     "crypto/asn1/a_bitstr.o",
                     "crypto/asn1/a_d2i_fp.o",
                     "crypto/asn1/a_digest.o",
@@ -12907,9 +10482,8 @@ our %unified_info = (
                     "crypto/blake2/blake2s.o",
                     "crypto/blake2/m_blake2b.o",
                     "crypto/blake2/m_blake2s.o",
-                    "crypto/bn/armv8-mont.o",
+                    "crypto/bn/asm/x86_64-gcc.o",
                     "crypto/bn/bn_add.o",
-                    "crypto/bn/bn_asm.o",
                     "crypto/bn/bn_blind.o",
                     "crypto/bn/bn_const.o",
                     "crypto/bn/bn_ctx.o",
@@ -12939,10 +10513,15 @@ our %unified_info = (
                     "crypto/bn/bn_srp.o",
                     "crypto/bn/bn_word.o",
                     "crypto/bn/bn_x931p.o",
+                    "crypto/bn/rsaz-avx2.o",
+                    "crypto/bn/rsaz-x86_64.o",
+                    "crypto/bn/rsaz_exp.o",
+                    "crypto/bn/x86_64-gf2m.o",
+                    "crypto/bn/x86_64-mont.o",
+                    "crypto/bn/x86_64-mont5.o",
                     "crypto/buffer/buf_err.o",
                     "crypto/buffer/buffer.o",
-                    "crypto/camellia/camellia.o",
-                    "crypto/camellia/cmll_cbc.o",
+                    "crypto/camellia/cmll-x86_64.o",
                     "crypto/camellia/cmll_cfb.o",
                     "crypto/camellia/cmll_ctr.o",
                     "crypto/camellia/cmll_ecb.o",
@@ -12953,7 +10532,7 @@ our %unified_info = (
                     "crypto/cast/c_enc.o",
                     "crypto/cast/c_ofb64.o",
                     "crypto/cast/c_skey.o",
-                    "crypto/chacha/chacha-armv8.o",
+                    "crypto/chacha/chacha-x86_64.o",
                     "crypto/cmac/cm_ameth.o",
                     "crypto/cmac/cm_pmeth.o",
                     "crypto/cmac/cmac.o",
@@ -13084,11 +10663,12 @@ our %unified_info = (
                     "crypto/ec/ecp_nistp256.o",
                     "crypto/ec/ecp_nistp521.o",
                     "crypto/ec/ecp_nistputil.o",
-                    "crypto/ec/ecp_nistz256-armv8.o",
+                    "crypto/ec/ecp_nistz256-x86_64.o",
                     "crypto/ec/ecp_nistz256.o",
                     "crypto/ec/ecp_oct.o",
                     "crypto/ec/ecp_smpl.o",
                     "crypto/ec/ecx_meth.o",
+                    "crypto/ec/x25519-x86_64.o",
                     "crypto/engine/eng_all.o",
                     "crypto/engine/eng_cnf.o",
                     "crypto/engine/eng_ctrl.o",
@@ -13194,6 +10774,7 @@ our %unified_info = (
                     "crypto/lhash/lhash.o",
                     "crypto/md4/md4_dgst.o",
                     "crypto/md4/md4_one.o",
+                    "crypto/md5/md5-x86_64.o",
                     "crypto/md5/md5_dgst.o",
                     "crypto/md5/md5_one.o",
                     "crypto/mdc2/mdc2_one.o",
@@ -13201,13 +10782,14 @@ our %unified_info = (
                     "crypto/mem.o",
                     "crypto/mem_dbg.o",
                     "crypto/mem_sec.o",
+                    "crypto/modes/aesni-gcm-x86_64.o",
                     "crypto/modes/cbc128.o",
                     "crypto/modes/ccm128.o",
                     "crypto/modes/cfb128.o",
                     "crypto/modes/ctr128.o",
                     "crypto/modes/cts128.o",
                     "crypto/modes/gcm128.o",
-                    "crypto/modes/ghashv8-armx.o",
+                    "crypto/modes/ghash-x86_64.o",
                     "crypto/modes/ocb128.o",
                     "crypto/modes/ofb128.o",
                     "crypto/modes/wrap128.o",
@@ -13268,7 +10850,7 @@ our %unified_info = (
                     "crypto/pkcs7/pk7_mime.o",
                     "crypto/pkcs7/pk7_smime.o",
                     "crypto/pkcs7/pkcs7err.o",
-                    "crypto/poly1305/poly1305-armv8.o",
+                    "crypto/poly1305/poly1305-x86_64.o",
                     "crypto/poly1305/poly1305.o",
                     "crypto/poly1305/poly1305_ameth.o",
                     "crypto/poly1305/poly1305_pmeth.o",
@@ -13286,8 +10868,8 @@ our %unified_info = (
                     "crypto/rc2/rc2_skey.o",
                     "crypto/rc2/rc2cfb64.o",
                     "crypto/rc2/rc2ofb64.o",
-                    "crypto/rc4/rc4_enc.o",
-                    "crypto/rc4/rc4_skey.o",
+                    "crypto/rc4/rc4-md5-x86_64.o",
+                    "crypto/rc4/rc4-x86_64.o",
                     "crypto/ripemd/rmd_dgst.o",
                     "crypto/ripemd/rmd_one.o",
                     "crypto/rsa/rsa_ameth.o",
@@ -13317,13 +10899,15 @@ our %unified_info = (
                     "crypto/seed/seed_cfb.o",
                     "crypto/seed/seed_ecb.o",
                     "crypto/seed/seed_ofb.o",
-                    "crypto/sha/keccak1600-armv8.o",
-                    "crypto/sha/sha1-armv8.o",
+                    "crypto/sha/keccak1600-x86_64.o",
+                    "crypto/sha/sha1-mb-x86_64.o",
+                    "crypto/sha/sha1-x86_64.o",
                     "crypto/sha/sha1_one.o",
                     "crypto/sha/sha1dgst.o",
-                    "crypto/sha/sha256-armv8.o",
+                    "crypto/sha/sha256-mb-x86_64.o",
+                    "crypto/sha/sha256-x86_64.o",
                     "crypto/sha/sha256.o",
-                    "crypto/sha/sha512-armv8.o",
+                    "crypto/sha/sha512-x86_64.o",
                     "crypto/sha/sha512.o",
                     "crypto/siphash/siphash.o",
                     "crypto/siphash/siphash_ameth.o",
@@ -13365,7 +10949,7 @@ our %unified_info = (
                     "crypto/ui/ui_openssl.o",
                     "crypto/ui/ui_util.o",
                     "crypto/uid.o",
-                    "crypto/whrlpool/wp_block.o",
+                    "crypto/whrlpool/wp-x86_64.o",
                     "crypto/whrlpool/wp_dgst.o",
                     "crypto/x509/by_dir.o",
                     "crypto/x509/by_file.o",
@@ -13440,6 +11024,10 @@ our %unified_info = (
                     "crypto/x509v3/v3_tlsf.o",
                     "crypto/x509v3/v3_utl.o",
                     "crypto/x509v3/v3err.o",
+                    "crypto/x86_64cpuid.o",
+                    "engines/e_capi.o",
+                    "engines/e_padlock-x86_64.o",
+                    "engines/e_padlock.o",
                 ],
             "libssl" =>
                 [
@@ -13664,1558 +11252,6 @@ our %unified_info = (
                 [
                     "ssl/tls_srp.c",
                 ],
-            "test/aborttest" =>
-                [
-                    "test/aborttest.o",
-                ],
-            "test/aborttest.o" =>
-                [
-                    "test/aborttest.c",
-                ],
-            "test/afalgtest" =>
-                [
-                    "test/afalgtest.o",
-                ],
-            "test/afalgtest.o" =>
-                [
-                    "test/afalgtest.c",
-                ],
-            "test/asn1_decode_test" =>
-                [
-                    "test/asn1_decode_test.o",
-                ],
-            "test/asn1_decode_test.o" =>
-                [
-                    "test/asn1_decode_test.c",
-                ],
-            "test/asn1_encode_test" =>
-                [
-                    "test/asn1_encode_test.o",
-                ],
-            "test/asn1_encode_test.o" =>
-                [
-                    "test/asn1_encode_test.c",
-                ],
-            "test/asn1_internal_test" =>
-                [
-                    "test/asn1_internal_test.o",
-                ],
-            "test/asn1_internal_test.o" =>
-                [
-                    "test/asn1_internal_test.c",
-                ],
-            "test/asn1_string_table_test" =>
-                [
-                    "test/asn1_string_table_test.o",
-                ],
-            "test/asn1_string_table_test.o" =>
-                [
-                    "test/asn1_string_table_test.c",
-                ],
-            "test/asn1_time_test" =>
-                [
-                    "test/asn1_time_test.o",
-                ],
-            "test/asn1_time_test.o" =>
-                [
-                    "test/asn1_time_test.c",
-                ],
-            "test/asynciotest" =>
-                [
-                    "test/asynciotest.o",
-                    "test/ssltestlib.o",
-                ],
-            "test/asynciotest.o" =>
-                [
-                    "test/asynciotest.c",
-                ],
-            "test/asynctest" =>
-                [
-                    "test/asynctest.o",
-                ],
-            "test/asynctest.o" =>
-                [
-                    "test/asynctest.c",
-                ],
-            "test/bad_dtls_test" =>
-                [
-                    "test/bad_dtls_test.o",
-                ],
-            "test/bad_dtls_test.o" =>
-                [
-                    "test/bad_dtls_test.c",
-                ],
-            "test/bftest" =>
-                [
-                    "test/bftest.o",
-                ],
-            "test/bftest.o" =>
-                [
-                    "test/bftest.c",
-                ],
-            "test/bio_callback_test" =>
-                [
-                    "test/bio_callback_test.o",
-                ],
-            "test/bio_callback_test.o" =>
-                [
-                    "test/bio_callback_test.c",
-                ],
-            "test/bio_enc_test" =>
-                [
-                    "test/bio_enc_test.o",
-                ],
-            "test/bio_enc_test.o" =>
-                [
-                    "test/bio_enc_test.c",
-                ],
-            "test/bio_memleak_test" =>
-                [
-                    "test/bio_memleak_test.o",
-                ],
-            "test/bio_memleak_test.o" =>
-                [
-                    "test/bio_memleak_test.c",
-                ],
-            "test/bioprinttest" =>
-                [
-                    "test/bioprinttest.o",
-                ],
-            "test/bioprinttest.o" =>
-                [
-                    "test/bioprinttest.c",
-                ],
-            "test/bntest" =>
-                [
-                    "test/bntest.o",
-                ],
-            "test/bntest.o" =>
-                [
-                    "test/bntest.c",
-                ],
-            "test/buildtest_aes.o" =>
-                [
-                    "test/buildtest_aes.c",
-                ],
-            "test/buildtest_asn1.o" =>
-                [
-                    "test/buildtest_asn1.c",
-                ],
-            "test/buildtest_asn1t.o" =>
-                [
-                    "test/buildtest_asn1t.c",
-                ],
-            "test/buildtest_async.o" =>
-                [
-                    "test/buildtest_async.c",
-                ],
-            "test/buildtest_bio.o" =>
-                [
-                    "test/buildtest_bio.c",
-                ],
-            "test/buildtest_blowfish.o" =>
-                [
-                    "test/buildtest_blowfish.c",
-                ],
-            "test/buildtest_bn.o" =>
-                [
-                    "test/buildtest_bn.c",
-                ],
-            "test/buildtest_buffer.o" =>
-                [
-                    "test/buildtest_buffer.c",
-                ],
-            "test/buildtest_c_aes" =>
-                [
-                    "test/buildtest_aes.o",
-                ],
-            "test/buildtest_c_asn1" =>
-                [
-                    "test/buildtest_asn1.o",
-                ],
-            "test/buildtest_c_asn1t" =>
-                [
-                    "test/buildtest_asn1t.o",
-                ],
-            "test/buildtest_c_async" =>
-                [
-                    "test/buildtest_async.o",
-                ],
-            "test/buildtest_c_bio" =>
-                [
-                    "test/buildtest_bio.o",
-                ],
-            "test/buildtest_c_blowfish" =>
-                [
-                    "test/buildtest_blowfish.o",
-                ],
-            "test/buildtest_c_bn" =>
-                [
-                    "test/buildtest_bn.o",
-                ],
-            "test/buildtest_c_buffer" =>
-                [
-                    "test/buildtest_buffer.o",
-                ],
-            "test/buildtest_c_camellia" =>
-                [
-                    "test/buildtest_camellia.o",
-                ],
-            "test/buildtest_c_cast" =>
-                [
-                    "test/buildtest_cast.o",
-                ],
-            "test/buildtest_c_cmac" =>
-                [
-                    "test/buildtest_cmac.o",
-                ],
-            "test/buildtest_c_cms" =>
-                [
-                    "test/buildtest_cms.o",
-                ],
-            "test/buildtest_c_comp" =>
-                [
-                    "test/buildtest_comp.o",
-                ],
-            "test/buildtest_c_conf" =>
-                [
-                    "test/buildtest_conf.o",
-                ],
-            "test/buildtest_c_conf_api" =>
-                [
-                    "test/buildtest_conf_api.o",
-                ],
-            "test/buildtest_c_crypto" =>
-                [
-                    "test/buildtest_crypto.o",
-                ],
-            "test/buildtest_c_ct" =>
-                [
-                    "test/buildtest_ct.o",
-                ],
-            "test/buildtest_c_des" =>
-                [
-                    "test/buildtest_des.o",
-                ],
-            "test/buildtest_c_dh" =>
-                [
-                    "test/buildtest_dh.o",
-                ],
-            "test/buildtest_c_dsa" =>
-                [
-                    "test/buildtest_dsa.o",
-                ],
-            "test/buildtest_c_dtls1" =>
-                [
-                    "test/buildtest_dtls1.o",
-                ],
-            "test/buildtest_c_e_os2" =>
-                [
-                    "test/buildtest_e_os2.o",
-                ],
-            "test/buildtest_c_ebcdic" =>
-                [
-                    "test/buildtest_ebcdic.o",
-                ],
-            "test/buildtest_c_ec" =>
-                [
-                    "test/buildtest_ec.o",
-                ],
-            "test/buildtest_c_ecdh" =>
-                [
-                    "test/buildtest_ecdh.o",
-                ],
-            "test/buildtest_c_ecdsa" =>
-                [
-                    "test/buildtest_ecdsa.o",
-                ],
-            "test/buildtest_c_engine" =>
-                [
-                    "test/buildtest_engine.o",
-                ],
-            "test/buildtest_c_evp" =>
-                [
-                    "test/buildtest_evp.o",
-                ],
-            "test/buildtest_c_hmac" =>
-                [
-                    "test/buildtest_hmac.o",
-                ],
-            "test/buildtest_c_idea" =>
-                [
-                    "test/buildtest_idea.o",
-                ],
-            "test/buildtest_c_kdf" =>
-                [
-                    "test/buildtest_kdf.o",
-                ],
-            "test/buildtest_c_lhash" =>
-                [
-                    "test/buildtest_lhash.o",
-                ],
-            "test/buildtest_c_md4" =>
-                [
-                    "test/buildtest_md4.o",
-                ],
-            "test/buildtest_c_md5" =>
-                [
-                    "test/buildtest_md5.o",
-                ],
-            "test/buildtest_c_mdc2" =>
-                [
-                    "test/buildtest_mdc2.o",
-                ],
-            "test/buildtest_c_modes" =>
-                [
-                    "test/buildtest_modes.o",
-                ],
-            "test/buildtest_c_obj_mac" =>
-                [
-                    "test/buildtest_obj_mac.o",
-                ],
-            "test/buildtest_c_objects" =>
-                [
-                    "test/buildtest_objects.o",
-                ],
-            "test/buildtest_c_ocsp" =>
-                [
-                    "test/buildtest_ocsp.o",
-                ],
-            "test/buildtest_c_opensslv" =>
-                [
-                    "test/buildtest_opensslv.o",
-                ],
-            "test/buildtest_c_ossl_typ" =>
-                [
-                    "test/buildtest_ossl_typ.o",
-                ],
-            "test/buildtest_c_pem" =>
-                [
-                    "test/buildtest_pem.o",
-                ],
-            "test/buildtest_c_pem2" =>
-                [
-                    "test/buildtest_pem2.o",
-                ],
-            "test/buildtest_c_pkcs12" =>
-                [
-                    "test/buildtest_pkcs12.o",
-                ],
-            "test/buildtest_c_pkcs7" =>
-                [
-                    "test/buildtest_pkcs7.o",
-                ],
-            "test/buildtest_c_rand" =>
-                [
-                    "test/buildtest_rand.o",
-                ],
-            "test/buildtest_c_rand_drbg" =>
-                [
-                    "test/buildtest_rand_drbg.o",
-                ],
-            "test/buildtest_c_rc2" =>
-                [
-                    "test/buildtest_rc2.o",
-                ],
-            "test/buildtest_c_rc4" =>
-                [
-                    "test/buildtest_rc4.o",
-                ],
-            "test/buildtest_c_ripemd" =>
-                [
-                    "test/buildtest_ripemd.o",
-                ],
-            "test/buildtest_c_rsa" =>
-                [
-                    "test/buildtest_rsa.o",
-                ],
-            "test/buildtest_c_safestack" =>
-                [
-                    "test/buildtest_safestack.o",
-                ],
-            "test/buildtest_c_seed" =>
-                [
-                    "test/buildtest_seed.o",
-                ],
-            "test/buildtest_c_sha" =>
-                [
-                    "test/buildtest_sha.o",
-                ],
-            "test/buildtest_c_srp" =>
-                [
-                    "test/buildtest_srp.o",
-                ],
-            "test/buildtest_c_srtp" =>
-                [
-                    "test/buildtest_srtp.o",
-                ],
-            "test/buildtest_c_ssl" =>
-                [
-                    "test/buildtest_ssl.o",
-                ],
-            "test/buildtest_c_ssl2" =>
-                [
-                    "test/buildtest_ssl2.o",
-                ],
-            "test/buildtest_c_stack" =>
-                [
-                    "test/buildtest_stack.o",
-                ],
-            "test/buildtest_c_store" =>
-                [
-                    "test/buildtest_store.o",
-                ],
-            "test/buildtest_c_symhacks" =>
-                [
-                    "test/buildtest_symhacks.o",
-                ],
-            "test/buildtest_c_tls1" =>
-                [
-                    "test/buildtest_tls1.o",
-                ],
-            "test/buildtest_c_ts" =>
-                [
-                    "test/buildtest_ts.o",
-                ],
-            "test/buildtest_c_txt_db" =>
-                [
-                    "test/buildtest_txt_db.o",
-                ],
-            "test/buildtest_c_ui" =>
-                [
-                    "test/buildtest_ui.o",
-                ],
-            "test/buildtest_c_whrlpool" =>
-                [
-                    "test/buildtest_whrlpool.o",
-                ],
-            "test/buildtest_c_x509" =>
-                [
-                    "test/buildtest_x509.o",
-                ],
-            "test/buildtest_c_x509_vfy" =>
-                [
-                    "test/buildtest_x509_vfy.o",
-                ],
-            "test/buildtest_c_x509v3" =>
-                [
-                    "test/buildtest_x509v3.o",
-                ],
-            "test/buildtest_camellia.o" =>
-                [
-                    "test/buildtest_camellia.c",
-                ],
-            "test/buildtest_cast.o" =>
-                [
-                    "test/buildtest_cast.c",
-                ],
-            "test/buildtest_cmac.o" =>
-                [
-                    "test/buildtest_cmac.c",
-                ],
-            "test/buildtest_cms.o" =>
-                [
-                    "test/buildtest_cms.c",
-                ],
-            "test/buildtest_comp.o" =>
-                [
-                    "test/buildtest_comp.c",
-                ],
-            "test/buildtest_conf.o" =>
-                [
-                    "test/buildtest_conf.c",
-                ],
-            "test/buildtest_conf_api.o" =>
-                [
-                    "test/buildtest_conf_api.c",
-                ],
-            "test/buildtest_crypto.o" =>
-                [
-                    "test/buildtest_crypto.c",
-                ],
-            "test/buildtest_ct.o" =>
-                [
-                    "test/buildtest_ct.c",
-                ],
-            "test/buildtest_des.o" =>
-                [
-                    "test/buildtest_des.c",
-                ],
-            "test/buildtest_dh.o" =>
-                [
-                    "test/buildtest_dh.c",
-                ],
-            "test/buildtest_dsa.o" =>
-                [
-                    "test/buildtest_dsa.c",
-                ],
-            "test/buildtest_dtls1.o" =>
-                [
-                    "test/buildtest_dtls1.c",
-                ],
-            "test/buildtest_e_os2.o" =>
-                [
-                    "test/buildtest_e_os2.c",
-                ],
-            "test/buildtest_ebcdic.o" =>
-                [
-                    "test/buildtest_ebcdic.c",
-                ],
-            "test/buildtest_ec.o" =>
-                [
-                    "test/buildtest_ec.c",
-                ],
-            "test/buildtest_ecdh.o" =>
-                [
-                    "test/buildtest_ecdh.c",
-                ],
-            "test/buildtest_ecdsa.o" =>
-                [
-                    "test/buildtest_ecdsa.c",
-                ],
-            "test/buildtest_engine.o" =>
-                [
-                    "test/buildtest_engine.c",
-                ],
-            "test/buildtest_evp.o" =>
-                [
-                    "test/buildtest_evp.c",
-                ],
-            "test/buildtest_hmac.o" =>
-                [
-                    "test/buildtest_hmac.c",
-                ],
-            "test/buildtest_idea.o" =>
-                [
-                    "test/buildtest_idea.c",
-                ],
-            "test/buildtest_kdf.o" =>
-                [
-                    "test/buildtest_kdf.c",
-                ],
-            "test/buildtest_lhash.o" =>
-                [
-                    "test/buildtest_lhash.c",
-                ],
-            "test/buildtest_md4.o" =>
-                [
-                    "test/buildtest_md4.c",
-                ],
-            "test/buildtest_md5.o" =>
-                [
-                    "test/buildtest_md5.c",
-                ],
-            "test/buildtest_mdc2.o" =>
-                [
-                    "test/buildtest_mdc2.c",
-                ],
-            "test/buildtest_modes.o" =>
-                [
-                    "test/buildtest_modes.c",
-                ],
-            "test/buildtest_obj_mac.o" =>
-                [
-                    "test/buildtest_obj_mac.c",
-                ],
-            "test/buildtest_objects.o" =>
-                [
-                    "test/buildtest_objects.c",
-                ],
-            "test/buildtest_ocsp.o" =>
-                [
-                    "test/buildtest_ocsp.c",
-                ],
-            "test/buildtest_opensslv.o" =>
-                [
-                    "test/buildtest_opensslv.c",
-                ],
-            "test/buildtest_ossl_typ.o" =>
-                [
-                    "test/buildtest_ossl_typ.c",
-                ],
-            "test/buildtest_pem.o" =>
-                [
-                    "test/buildtest_pem.c",
-                ],
-            "test/buildtest_pem2.o" =>
-                [
-                    "test/buildtest_pem2.c",
-                ],
-            "test/buildtest_pkcs12.o" =>
-                [
-                    "test/buildtest_pkcs12.c",
-                ],
-            "test/buildtest_pkcs7.o" =>
-                [
-                    "test/buildtest_pkcs7.c",
-                ],
-            "test/buildtest_rand.o" =>
-                [
-                    "test/buildtest_rand.c",
-                ],
-            "test/buildtest_rand_drbg.o" =>
-                [
-                    "test/buildtest_rand_drbg.c",
-                ],
-            "test/buildtest_rc2.o" =>
-                [
-                    "test/buildtest_rc2.c",
-                ],
-            "test/buildtest_rc4.o" =>
-                [
-                    "test/buildtest_rc4.c",
-                ],
-            "test/buildtest_ripemd.o" =>
-                [
-                    "test/buildtest_ripemd.c",
-                ],
-            "test/buildtest_rsa.o" =>
-                [
-                    "test/buildtest_rsa.c",
-                ],
-            "test/buildtest_safestack.o" =>
-                [
-                    "test/buildtest_safestack.c",
-                ],
-            "test/buildtest_seed.o" =>
-                [
-                    "test/buildtest_seed.c",
-                ],
-            "test/buildtest_sha.o" =>
-                [
-                    "test/buildtest_sha.c",
-                ],
-            "test/buildtest_srp.o" =>
-                [
-                    "test/buildtest_srp.c",
-                ],
-            "test/buildtest_srtp.o" =>
-                [
-                    "test/buildtest_srtp.c",
-                ],
-            "test/buildtest_ssl.o" =>
-                [
-                    "test/buildtest_ssl.c",
-                ],
-            "test/buildtest_ssl2.o" =>
-                [
-                    "test/buildtest_ssl2.c",
-                ],
-            "test/buildtest_stack.o" =>
-                [
-                    "test/buildtest_stack.c",
-                ],
-            "test/buildtest_store.o" =>
-                [
-                    "test/buildtest_store.c",
-                ],
-            "test/buildtest_symhacks.o" =>
-                [
-                    "test/buildtest_symhacks.c",
-                ],
-            "test/buildtest_tls1.o" =>
-                [
-                    "test/buildtest_tls1.c",
-                ],
-            "test/buildtest_ts.o" =>
-                [
-                    "test/buildtest_ts.c",
-                ],
-            "test/buildtest_txt_db.o" =>
-                [
-                    "test/buildtest_txt_db.c",
-                ],
-            "test/buildtest_ui.o" =>
-                [
-                    "test/buildtest_ui.c",
-                ],
-            "test/buildtest_whrlpool.o" =>
-                [
-                    "test/buildtest_whrlpool.c",
-                ],
-            "test/buildtest_x509.o" =>
-                [
-                    "test/buildtest_x509.c",
-                ],
-            "test/buildtest_x509_vfy.o" =>
-                [
-                    "test/buildtest_x509_vfy.c",
-                ],
-            "test/buildtest_x509v3.o" =>
-                [
-                    "test/buildtest_x509v3.c",
-                ],
-            "test/casttest" =>
-                [
-                    "test/casttest.o",
-                ],
-            "test/casttest.o" =>
-                [
-                    "test/casttest.c",
-                ],
-            "test/chacha_internal_test" =>
-                [
-                    "test/chacha_internal_test.o",
-                ],
-            "test/chacha_internal_test.o" =>
-                [
-                    "test/chacha_internal_test.c",
-                ],
-            "test/cipherbytes_test" =>
-                [
-                    "test/cipherbytes_test.o",
-                ],
-            "test/cipherbytes_test.o" =>
-                [
-                    "test/cipherbytes_test.c",
-                ],
-            "test/cipherlist_test" =>
-                [
-                    "test/cipherlist_test.o",
-                ],
-            "test/cipherlist_test.o" =>
-                [
-                    "test/cipherlist_test.c",
-                ],
-            "test/ciphername_test" =>
-                [
-                    "test/ciphername_test.o",
-                ],
-            "test/ciphername_test.o" =>
-                [
-                    "test/ciphername_test.c",
-                ],
-            "test/clienthellotest" =>
-                [
-                    "test/clienthellotest.o",
-                ],
-            "test/clienthellotest.o" =>
-                [
-                    "test/clienthellotest.c",
-                ],
-            "test/cmactest" =>
-                [
-                    "test/cmactest.o",
-                ],
-            "test/cmactest.o" =>
-                [
-                    "test/cmactest.c",
-                ],
-            "test/cmsapitest" =>
-                [
-                    "test/cmsapitest.o",
-                ],
-            "test/cmsapitest.o" =>
-                [
-                    "test/cmsapitest.c",
-                ],
-            "test/conf_include_test" =>
-                [
-                    "test/conf_include_test.o",
-                ],
-            "test/conf_include_test.o" =>
-                [
-                    "test/conf_include_test.c",
-                ],
-            "test/constant_time_test" =>
-                [
-                    "test/constant_time_test.o",
-                ],
-            "test/constant_time_test.o" =>
-                [
-                    "test/constant_time_test.c",
-                ],
-            "test/crltest" =>
-                [
-                    "test/crltest.o",
-                ],
-            "test/crltest.o" =>
-                [
-                    "test/crltest.c",
-                ],
-            "test/ct_test" =>
-                [
-                    "test/ct_test.o",
-                ],
-            "test/ct_test.o" =>
-                [
-                    "test/ct_test.c",
-                ],
-            "test/ctype_internal_test" =>
-                [
-                    "test/ctype_internal_test.o",
-                ],
-            "test/ctype_internal_test.o" =>
-                [
-                    "test/ctype_internal_test.c",
-                ],
-            "test/curve448_internal_test" =>
-                [
-                    "test/curve448_internal_test.o",
-                ],
-            "test/curve448_internal_test.o" =>
-                [
-                    "test/curve448_internal_test.c",
-                ],
-            "test/d2i_test" =>
-                [
-                    "test/d2i_test.o",
-                ],
-            "test/d2i_test.o" =>
-                [
-                    "test/d2i_test.c",
-                ],
-            "test/danetest" =>
-                [
-                    "test/danetest.o",
-                ],
-            "test/danetest.o" =>
-                [
-                    "test/danetest.c",
-                ],
-            "test/destest" =>
-                [
-                    "test/destest.o",
-                ],
-            "test/destest.o" =>
-                [
-                    "test/destest.c",
-                ],
-            "test/dhtest" =>
-                [
-                    "test/dhtest.o",
-                ],
-            "test/dhtest.o" =>
-                [
-                    "test/dhtest.c",
-                ],
-            "test/drbg_cavs_data.o" =>
-                [
-                    "test/drbg_cavs_data.c",
-                ],
-            "test/drbg_cavs_test" =>
-                [
-                    "test/drbg_cavs_data.o",
-                    "test/drbg_cavs_test.o",
-                ],
-            "test/drbg_cavs_test.o" =>
-                [
-                    "test/drbg_cavs_test.c",
-                ],
-            "test/drbgtest" =>
-                [
-                    "test/drbgtest.o",
-                ],
-            "test/drbgtest.o" =>
-                [
-                    "test/drbgtest.c",
-                ],
-            "test/dsa_no_digest_size_test" =>
-                [
-                    "test/dsa_no_digest_size_test.o",
-                ],
-            "test/dsa_no_digest_size_test.o" =>
-                [
-                    "test/dsa_no_digest_size_test.c",
-                ],
-            "test/dsatest" =>
-                [
-                    "test/dsatest.o",
-                ],
-            "test/dsatest.o" =>
-                [
-                    "test/dsatest.c",
-                ],
-            "test/dtls_mtu_test" =>
-                [
-                    "test/dtls_mtu_test.o",
-                    "test/ssltestlib.o",
-                ],
-            "test/dtls_mtu_test.o" =>
-                [
-                    "test/dtls_mtu_test.c",
-                ],
-            "test/dtlstest" =>
-                [
-                    "test/dtlstest.o",
-                    "test/ssltestlib.o",
-                ],
-            "test/dtlstest.o" =>
-                [
-                    "test/dtlstest.c",
-                ],
-            "test/dtlsv1listentest" =>
-                [
-                    "test/dtlsv1listentest.o",
-                ],
-            "test/dtlsv1listentest.o" =>
-                [
-                    "test/dtlsv1listentest.c",
-                ],
-            "test/ec_internal_test" =>
-                [
-                    "test/ec_internal_test.o",
-                ],
-            "test/ec_internal_test.o" =>
-                [
-                    "test/ec_internal_test.c",
-                ],
-            "test/ecdsatest" =>
-                [
-                    "test/ecdsatest.o",
-                ],
-            "test/ecdsatest.o" =>
-                [
-                    "test/ecdsatest.c",
-                ],
-            "test/ecstresstest" =>
-                [
-                    "test/ecstresstest.o",
-                ],
-            "test/ecstresstest.o" =>
-                [
-                    "test/ecstresstest.c",
-                ],
-            "test/ectest" =>
-                [
-                    "test/ectest.o",
-                ],
-            "test/ectest.o" =>
-                [
-                    "test/ectest.c",
-                ],
-            "test/enginetest" =>
-                [
-                    "test/enginetest.o",
-                ],
-            "test/enginetest.o" =>
-                [
-                    "test/enginetest.c",
-                ],
-            "test/errtest" =>
-                [
-                    "test/errtest.o",
-                ],
-            "test/errtest.o" =>
-                [
-                    "test/errtest.c",
-                ],
-            "test/evp_extra_test" =>
-                [
-                    "test/evp_extra_test.o",
-                ],
-            "test/evp_extra_test.o" =>
-                [
-                    "test/evp_extra_test.c",
-                ],
-            "test/evp_test" =>
-                [
-                    "test/evp_test.o",
-                ],
-            "test/evp_test.o" =>
-                [
-                    "test/evp_test.c",
-                ],
-            "test/exdatatest" =>
-                [
-                    "test/exdatatest.o",
-                ],
-            "test/exdatatest.o" =>
-                [
-                    "test/exdatatest.c",
-                ],
-            "test/exptest" =>
-                [
-                    "test/exptest.o",
-                ],
-            "test/exptest.o" =>
-                [
-                    "test/exptest.c",
-                ],
-            "test/fatalerrtest" =>
-                [
-                    "test/fatalerrtest.o",
-                    "test/ssltestlib.o",
-                ],
-            "test/fatalerrtest.o" =>
-                [
-                    "test/fatalerrtest.c",
-                ],
-            "test/gmdifftest" =>
-                [
-                    "test/gmdifftest.o",
-                ],
-            "test/gmdifftest.o" =>
-                [
-                    "test/gmdifftest.c",
-                ],
-            "test/gosttest" =>
-                [
-                    "test/gosttest.o",
-                    "test/ssltestlib.o",
-                ],
-            "test/gosttest.o" =>
-                [
-                    "test/gosttest.c",
-                ],
-            "test/handshake_helper.o" =>
-                [
-                    "test/handshake_helper.c",
-                ],
-            "test/hmactest" =>
-                [
-                    "test/hmactest.o",
-                ],
-            "test/hmactest.o" =>
-                [
-                    "test/hmactest.c",
-                ],
-            "test/ideatest" =>
-                [
-                    "test/ideatest.o",
-                ],
-            "test/ideatest.o" =>
-                [
-                    "test/ideatest.c",
-                ],
-            "test/igetest" =>
-                [
-                    "test/igetest.o",
-                ],
-            "test/igetest.o" =>
-                [
-                    "test/igetest.c",
-                ],
-            "test/lhash_test" =>
-                [
-                    "test/lhash_test.o",
-                ],
-            "test/lhash_test.o" =>
-                [
-                    "test/lhash_test.c",
-                ],
-            "test/libtestutil.a" =>
-                [
-                    "test/testutil/basic_output.o",
-                    "test/testutil/cb.o",
-                    "test/testutil/driver.o",
-                    "test/testutil/format_output.o",
-                    "test/testutil/main.o",
-                    "test/testutil/output_helpers.o",
-                    "test/testutil/random.o",
-                    "test/testutil/stanza.o",
-                    "test/testutil/tap_bio.o",
-                    "test/testutil/test_cleanup.o",
-                    "test/testutil/tests.o",
-                    "test/testutil/testutil_init.o",
-                ],
-            "test/md2test" =>
-                [
-                    "test/md2test.o",
-                ],
-            "test/md2test.o" =>
-                [
-                    "test/md2test.c",
-                ],
-            "test/mdc2_internal_test" =>
-                [
-                    "test/mdc2_internal_test.o",
-                ],
-            "test/mdc2_internal_test.o" =>
-                [
-                    "test/mdc2_internal_test.c",
-                ],
-            "test/mdc2test" =>
-                [
-                    "test/mdc2test.o",
-                ],
-            "test/mdc2test.o" =>
-                [
-                    "test/mdc2test.c",
-                ],
-            "test/memleaktest" =>
-                [
-                    "test/memleaktest.o",
-                ],
-            "test/memleaktest.o" =>
-                [
-                    "test/memleaktest.c",
-                ],
-            "test/modes_internal_test" =>
-                [
-                    "test/modes_internal_test.o",
-                ],
-            "test/modes_internal_test.o" =>
-                [
-                    "test/modes_internal_test.c",
-                ],
-            "test/ocspapitest" =>
-                [
-                    "test/ocspapitest.o",
-                ],
-            "test/ocspapitest.o" =>
-                [
-                    "test/ocspapitest.c",
-                ],
-            "test/packettest" =>
-                [
-                    "test/packettest.o",
-                ],
-            "test/packettest.o" =>
-                [
-                    "test/packettest.c",
-                ],
-            "test/pbelutest" =>
-                [
-                    "test/pbelutest.o",
-                ],
-            "test/pbelutest.o" =>
-                [
-                    "test/pbelutest.c",
-                ],
-            "test/pemtest" =>
-                [
-                    "test/pemtest.o",
-                ],
-            "test/pemtest.o" =>
-                [
-                    "test/pemtest.c",
-                ],
-            "test/pkey_meth_kdf_test" =>
-                [
-                    "test/pkey_meth_kdf_test.o",
-                ],
-            "test/pkey_meth_kdf_test.o" =>
-                [
-                    "test/pkey_meth_kdf_test.c",
-                ],
-            "test/pkey_meth_test" =>
-                [
-                    "test/pkey_meth_test.o",
-                ],
-            "test/pkey_meth_test.o" =>
-                [
-                    "test/pkey_meth_test.c",
-                ],
-            "test/poly1305_internal_test" =>
-                [
-                    "test/poly1305_internal_test.o",
-                ],
-            "test/poly1305_internal_test.o" =>
-                [
-                    "test/poly1305_internal_test.c",
-                ],
-            "test/rc2test" =>
-                [
-                    "test/rc2test.o",
-                ],
-            "test/rc2test.o" =>
-                [
-                    "test/rc2test.c",
-                ],
-            "test/rc4test" =>
-                [
-                    "test/rc4test.o",
-                ],
-            "test/rc4test.o" =>
-                [
-                    "test/rc4test.c",
-                ],
-            "test/rc5test" =>
-                [
-                    "test/rc5test.o",
-                ],
-            "test/rc5test.o" =>
-                [
-                    "test/rc5test.c",
-                ],
-            "test/rdrand_sanitytest" =>
-                [
-                    "test/rdrand_sanitytest.o",
-                ],
-            "test/rdrand_sanitytest.o" =>
-                [
-                    "test/rdrand_sanitytest.c",
-                ],
-            "test/recordlentest" =>
-                [
-                    "test/recordlentest.o",
-                    "test/ssltestlib.o",
-                ],
-            "test/recordlentest.o" =>
-                [
-                    "test/recordlentest.c",
-                ],
-            "test/rsa_complex" =>
-                [
-                    "test/rsa_complex.o",
-                ],
-            "test/rsa_complex.o" =>
-                [
-                    "test/rsa_complex.c",
-                ],
-            "test/rsa_mp_test" =>
-                [
-                    "test/rsa_mp_test.o",
-                ],
-            "test/rsa_mp_test.o" =>
-                [
-                    "test/rsa_mp_test.c",
-                ],
-            "test/rsa_test" =>
-                [
-                    "test/rsa_test.o",
-                ],
-            "test/rsa_test.o" =>
-                [
-                    "test/rsa_test.c",
-                ],
-            "test/sanitytest" =>
-                [
-                    "test/sanitytest.o",
-                ],
-            "test/sanitytest.o" =>
-                [
-                    "test/sanitytest.c",
-                ],
-            "test/secmemtest" =>
-                [
-                    "test/secmemtest.o",
-                ],
-            "test/secmemtest.o" =>
-                [
-                    "test/secmemtest.c",
-                ],
-            "test/servername_test" =>
-                [
-                    "test/servername_test.o",
-                    "test/ssltestlib.o",
-                ],
-            "test/servername_test.o" =>
-                [
-                    "test/servername_test.c",
-                ],
-            "test/shlibloadtest" =>
-                [
-                    "test/shlibloadtest.o",
-                ],
-            "test/shlibloadtest.o" =>
-                [
-                    "test/shlibloadtest.c",
-                ],
-            "test/siphash_internal_test" =>
-                [
-                    "test/siphash_internal_test.o",
-                ],
-            "test/siphash_internal_test.o" =>
-                [
-                    "test/siphash_internal_test.c",
-                ],
-            "test/sm2_internal_test" =>
-                [
-                    "test/sm2_internal_test.o",
-                ],
-            "test/sm2_internal_test.o" =>
-                [
-                    "test/sm2_internal_test.c",
-                ],
-            "test/sm4_internal_test" =>
-                [
-                    "test/sm4_internal_test.o",
-                ],
-            "test/sm4_internal_test.o" =>
-                [
-                    "test/sm4_internal_test.c",
-                ],
-            "test/srptest" =>
-                [
-                    "test/srptest.o",
-                ],
-            "test/srptest.o" =>
-                [
-                    "test/srptest.c",
-                ],
-            "test/ssl_cert_table_internal_test" =>
-                [
-                    "test/ssl_cert_table_internal_test.o",
-                ],
-            "test/ssl_cert_table_internal_test.o" =>
-                [
-                    "test/ssl_cert_table_internal_test.c",
-                ],
-            "test/ssl_ctx_test" =>
-                [
-                    "test/ssl_ctx_test.o",
-                ],
-            "test/ssl_ctx_test.o" =>
-                [
-                    "test/ssl_ctx_test.c",
-                ],
-            "test/ssl_test" =>
-                [
-                    "test/handshake_helper.o",
-                    "test/ssl_test.o",
-                    "test/ssl_test_ctx.o",
-                ],
-            "test/ssl_test.o" =>
-                [
-                    "test/ssl_test.c",
-                ],
-            "test/ssl_test_ctx.o" =>
-                [
-                    "test/ssl_test_ctx.c",
-                ],
-            "test/ssl_test_ctx_test" =>
-                [
-                    "test/ssl_test_ctx.o",
-                    "test/ssl_test_ctx_test.o",
-                ],
-            "test/ssl_test_ctx_test.o" =>
-                [
-                    "test/ssl_test_ctx_test.c",
-                ],
-            "test/sslapitest" =>
-                [
-                    "test/sslapitest.o",
-                    "test/ssltestlib.o",
-                ],
-            "test/sslapitest.o" =>
-                [
-                    "test/sslapitest.c",
-                ],
-            "test/sslbuffertest" =>
-                [
-                    "test/sslbuffertest.o",
-                    "test/ssltestlib.o",
-                ],
-            "test/sslbuffertest.o" =>
-                [
-                    "test/sslbuffertest.c",
-                ],
-            "test/sslcorrupttest" =>
-                [
-                    "test/sslcorrupttest.o",
-                    "test/ssltestlib.o",
-                ],
-            "test/sslcorrupttest.o" =>
-                [
-                    "test/sslcorrupttest.c",
-                ],
-            "test/ssltest_old" =>
-                [
-                    "test/ssltest_old.o",
-                ],
-            "test/ssltest_old.o" =>
-                [
-                    "test/ssltest_old.c",
-                ],
-            "test/ssltestlib.o" =>
-                [
-                    "test/ssltestlib.c",
-                ],
-            "test/stack_test" =>
-                [
-                    "test/stack_test.o",
-                ],
-            "test/stack_test.o" =>
-                [
-                    "test/stack_test.c",
-                ],
-            "test/sysdefaulttest" =>
-                [
-                    "test/sysdefaulttest.o",
-                ],
-            "test/sysdefaulttest.o" =>
-                [
-                    "test/sysdefaulttest.c",
-                ],
-            "test/test_test" =>
-                [
-                    "test/test_test.o",
-                ],
-            "test/test_test.o" =>
-                [
-                    "test/test_test.c",
-                ],
-            "test/testutil/basic_output.o" =>
-                [
-                    "test/testutil/basic_output.c",
-                ],
-            "test/testutil/cb.o" =>
-                [
-                    "test/testutil/cb.c",
-                ],
-            "test/testutil/driver.o" =>
-                [
-                    "test/testutil/driver.c",
-                ],
-            "test/testutil/format_output.o" =>
-                [
-                    "test/testutil/format_output.c",
-                ],
-            "test/testutil/main.o" =>
-                [
-                    "test/testutil/main.c",
-                ],
-            "test/testutil/output_helpers.o" =>
-                [
-                    "test/testutil/output_helpers.c",
-                ],
-            "test/testutil/random.o" =>
-                [
-                    "test/testutil/random.c",
-                ],
-            "test/testutil/stanza.o" =>
-                [
-                    "test/testutil/stanza.c",
-                ],
-            "test/testutil/tap_bio.o" =>
-                [
-                    "test/testutil/tap_bio.c",
-                ],
-            "test/testutil/test_cleanup.o" =>
-                [
-                    "test/testutil/test_cleanup.c",
-                ],
-            "test/testutil/tests.o" =>
-                [
-                    "test/testutil/tests.c",
-                ],
-            "test/testutil/testutil_init.o" =>
-                [
-                    "test/testutil/testutil_init.c",
-                ],
-            "test/threadstest" =>
-                [
-                    "test/threadstest.o",
-                ],
-            "test/threadstest.o" =>
-                [
-                    "test/threadstest.c",
-                ],
-            "test/time_offset_test" =>
-                [
-                    "test/time_offset_test.o",
-                ],
-            "test/time_offset_test.o" =>
-                [
-                    "test/time_offset_test.c",
-                ],
-            "test/tls13ccstest" =>
-                [
-                    "test/ssltestlib.o",
-                    "test/tls13ccstest.o",
-                ],
-            "test/tls13ccstest.o" =>
-                [
-                    "test/tls13ccstest.c",
-                ],
-            "test/tls13encryptiontest" =>
-                [
-                    "test/tls13encryptiontest.o",
-                ],
-            "test/tls13encryptiontest.o" =>
-                [
-                    "test/tls13encryptiontest.c",
-                ],
-            "test/tls13secretstest" =>
-                [
-                    "ssl/packet.o",
-                    "ssl/tls13_enc.o",
-                    "test/tls13secretstest.o",
-                ],
-            "test/tls13secretstest.o" =>
-                [
-                    "test/tls13secretstest.c",
-                ],
-            "test/uitest" =>
-                [
-                    "test/uitest.o",
-                ],
-            "test/uitest.o" =>
-                [
-                    "test/uitest.c",
-                ],
-            "test/v3ext" =>
-                [
-                    "test/v3ext.o",
-                ],
-            "test/v3ext.o" =>
-                [
-                    "test/v3ext.c",
-                ],
-            "test/v3nametest" =>
-                [
-                    "test/v3nametest.o",
-                ],
-            "test/v3nametest.o" =>
-                [
-                    "test/v3nametest.c",
-                ],
-            "test/verify_extra_test" =>
-                [
-                    "test/verify_extra_test.o",
-                ],
-            "test/verify_extra_test.o" =>
-                [
-                    "test/verify_extra_test.c",
-                ],
-            "test/versions" =>
-                [
-                    "test/versions.o",
-                ],
-            "test/versions.o" =>
-                [
-                    "test/versions.c",
-                ],
-            "test/wpackettest" =>
-                [
-                    "test/wpackettest.o",
-                ],
-            "test/wpackettest.o" =>
-                [
-                    "test/wpackettest.c",
-                ],
-            "test/x509_check_cert_pkey_test" =>
-                [
-                    "test/x509_check_cert_pkey_test.o",
-                ],
-            "test/x509_check_cert_pkey_test.o" =>
-                [
-                    "test/x509_check_cert_pkey_test.c",
-                ],
-            "test/x509_dup_cert_test" =>
-                [
-                    "test/x509_dup_cert_test.o",
-                ],
-            "test/x509_dup_cert_test.o" =>
-                [
-                    "test/x509_dup_cert_test.c",
-                ],
-            "test/x509_internal_test" =>
-                [
-                    "test/x509_internal_test.o",
-                ],
-            "test/x509_internal_test.o" =>
-                [
-                    "test/x509_internal_test.c",
-                ],
-            "test/x509_time_test" =>
-                [
-                    "test/x509_time_test.o",
-                ],
-            "test/x509_time_test.o" =>
-                [
-                    "test/x509_time_test.c",
-                ],
-            "test/x509aux" =>
-                [
-                    "test/x509aux.o",
-                ],
-            "test/x509aux.o" =>
-                [
-                    "test/x509aux.c",
-                ],
             "tools/c_rehash" =>
                 [
                     "tools/c_rehash.in",
@@ -15310,6 +11346,9 @@ my %disabled_info = (
     },
     'ssl3-method' => {
         macro => 'OPENSSL_NO_SSL3_METHOD',
+    },
+    'tests' => {
+        macro => 'OPENSSL_NO_TESTS',
     },
     'ubsan' => {
         macro => 'OPENSSL_NO_UBSAN',

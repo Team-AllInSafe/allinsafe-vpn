@@ -149,7 +149,8 @@ LOCAL_SRC_FILES := $(filter %.c,$(libcharon_la_SOURCES))
 
 LOCAL_SRC_FILES += $(call add_plugin, android-dns)
 ifneq ($(call plugin_enabled, android-dns),)
-LOCAL_SHARED_LIBRARIES += libcutils
+# to me, this 'cutils' is undefined. so delete
+# LOCAL_SHARED_LIBRARIES += libcutils
 endif
 
 LOCAL_SRC_FILES += $(call add_plugin, android-log)

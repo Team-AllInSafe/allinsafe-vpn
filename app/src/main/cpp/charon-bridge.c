@@ -1,14 +1,13 @@
 #include <jni.h>
 #include <android/log.h>
 #include <stdio.h>
+#include <unistd.h>
 
-//#include <credentials/certificates/certificate.h> // lib->credmgr
-//#include <utils/identification.h>
-//#include <credentials/keys/shared_key.h>
+#include <credentials/keys/shared_key.h>
 #include <credentials/sets/mem_cred.h>
 #include <credentials/credential_manager.h>
 #include <library.h>
-#include <credentials/certificates/x509.h>
+//#include <credentials/certificates/x509.h>
 #include <threading/rwlock.h>
 #include <utils/chunk.h>
 #include <utils/debug.h>
@@ -19,7 +18,6 @@
 #define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
 
 
-typedef struct cert_t cert_t;
 
 
 JNIEXPORT jboolean JNICALL
@@ -27,13 +25,17 @@ Java_com_allinsafevpn_NativeVpnBridge_registerCredentials(JNIEnv *env, jobject t
                                                           jstring j_server,
                                                           jstring j_username,
                                                           jstring j_password,
-                                                          jstring j_certBytes,
-                                                          jstring j_certPath) {
+                                                          jstring j_certPath
+                                                          ) {
+
+
     const char *username = (*env)->GetStringUTFChars(env, j_username, 0);
     const char *password = (*env)->GetStringUTFChars(env, j_password, 0);
     const char *certPath = (*env)->GetStringUTFChars(env, j_certPath, 0);
 
-    // 인증서 로딩 (파일에서 DER 형식으로)
+    library_init(NULL,"libstrongswan");
+
+    // 3️⃣ 파일 경로를 BUILD_FROM_FILE로 넘긴다
     certificate_t *cert = lib->creds->create(lib->creds,
                                              CRED_CERTIFICATE, CERT_X509,
                                              BUILD_FROM_FILE, certPath,
@@ -41,6 +43,9 @@ Java_com_allinsafevpn_NativeVpnBridge_registerCredentials(JNIEnv *env, jobject t
 
     if (!cert) {
     LOGE("❌ 인증서 로딩 실패: %s", certPath);
+        (*env)->ReleaseStringUTFChars(env, j_username, username);
+        (*env)->ReleaseStringUTFChars(env, j_password, password);
+        (*env)->ReleaseStringUTFChars(env, j_certPath, certPath);
     return JNI_FALSE;
     }
 
@@ -60,7 +65,6 @@ Java_com_allinsafevpn_NativeVpnBridge_registerCredentials(JNIEnv *env, jobject t
 //    lib->credmgr->add_set(lib->credmgr,&creds->set); CRED_CERTIFICATE 넣는거 내가 뺌.
 //      파라미터가 두개짜리 함수인데 3개 넣는걸로 줘서 내가 수정
 
-    LOGI("✅ 인증 정보 등록 완료: ID=%s\n cert:%s", username,certPath);
 
     (*env)->ReleaseStringUTFChars(env, j_username, username);
     (*env)->ReleaseStringUTFChars(env, j_password, password);
@@ -123,34 +127,37 @@ Java_com_allinsafevpn_NativeVpnBridge_registerCredentials(JNIEnv *env, jobject t
  */
 
 //startVpn 전버전 (안돌아감)
-// #include <credentials/auth_cfg.h> //add_cert
-// Java_com_allinsafevpn_NativeVpnBridge_startVpn(JNIEnv *env, jobject thiz,
-//                                               jstring server,
-//                                               jstring username,
-//                                               jstring password,
-//                                               jbyteArray certBytes,
-//                                               jstring certPath) {
-//    // 1. 인증서 파일 저장
-//    jsize len = (*env)->GetArrayLength(env, certBytes);
-//    jbyte *buf = (*env)->GetByteArrayElements(env, certBytes, NULL);
-//
-//    const char *c_certPath = (*env)->GetStringUTFChars(env, certPath, 0);
-//    FILE *fp = fopen(c_certPath, "wb");
-//    if (fp == NULL) {
-//        LOGE("❌ Failed to open file for CA cert");
-//        return JNI_FALSE;
-//    }
-//
-//    fwrite(buf, sizeof(jbyte), len, fp);
-//    fclose(fp);
-//    (*env)->ReleaseStringUTFChars(env, certPath, c_certPath);
-//
-//    // 2. 문자열 파라미터 변환
-//    const char *c_server = (*env)->GetStringUTFChars(env, server, 0);
-//    const char *c_user = (*env)->GetStringUTFChars(env, username, 0);
-//    const char *c_pw = (*env)->GetStringUTFChars(env, password, 0);
-//
-//    LOGI("🔐 server=%s, id=%s", c_server, c_user);
+/*
+ #include <credentials/auth_cfg.h> //add_cert
+ Java_com_allinsafevpn_NativeVpnBridge_startVpn(JNIEnv *env, jobject thiz,
+                                               jstring server,
+                                               jstring username,
+                                               jstring password,
+                                               jbyteArray certBytes,
+                                               jstring certPath) {
+    // 1. 인증서 파일 저장
+    jsize len = (*env)->GetArrayLength(env, certBytes);
+    jbyte *buf = (*env)->GetByteArrayElements(env, certBytes, NULL);
+
+    const char *c_certPath = (*env)->GetStringUTFChars(env, certPath, 0);
+    FILE *fp = fopen(c_certPath, "wb");
+    if (fp == NULL) {
+        LOGE("❌ Failed to open file for CA cert");
+        return JNI_FALSE;
+    }
+
+    fwrite(buf, sizeof(jbyte), len, fp);
+    fclose(fp);
+    (*env)->ReleaseStringUTFChars(env, certPath, c_certPath);
+
+    // 2. 문자열 파라미터 변환
+    const char *c_server = (*env)->GetStringUTFChars(env, server, 0);
+    const char *c_user = (*env)->GetStringUTFChars(env, username, 0);
+    const char *c_pw = (*env)->GetStringUTFChars(env, password, 0);
+
+    LOGI("🔐 server=%s, id=%s", c_server, c_user);
+    */
+
 
 
 

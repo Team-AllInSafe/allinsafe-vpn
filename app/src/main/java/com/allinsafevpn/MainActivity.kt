@@ -14,10 +14,11 @@ import com.allinsafevpn.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     val REQUEST_CODE_PREPARE_VPN = 1001
-    val binding = ActivityMainBinding.inflate(layoutInflater)
+    lateinit var binding : ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.startVpn.setOnClickListener{
@@ -43,6 +44,9 @@ class MainActivity : AppCompatActivity() {
         if (success) {
             Log.d("VPN", "VPN 연결 시도됨")
         }
+        val certExists = applicationContext.assets.list("")?.contains("ca-cert.pem") == true
+        Log.d("JNI-Bridge", "ca-cert.pem exists? $certExists")
+
     }
 
 }

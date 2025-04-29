@@ -78,14 +78,17 @@ strongswan_CFLAGS := \
 strongswan_CFLAGS += \
 	-DHAVE_IN6ADDR_ANY
 
+# to prevent building 'charon'
+# strongswan_BUILD_STARTER :=
+
 strongswan_BUILD := \
-	charon \
 	libcharon \
-	libstrongswan \
-	libtncif \
-	libtnccs \
-	libimcv \
-	libtpmtss
+	libstrongswan 
+	# charon \
+	#libtncif \
+	#libtnccs \
+	#libimcv \
+	#libtpmtss
 
 ifneq ($(strongswan_BUILD_STARTER),)
 strongswan_BUILD += \
